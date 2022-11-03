@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
+use App\Http\Resources\TodoCollection;
+use App\Http\Resources\TodoResource;
 
 class TodoController extends Controller
 {
@@ -15,17 +17,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return new TodoCollection(Todo::get());
     }
 
     /**
@@ -36,7 +28,14 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        //
+        $data = [
+            "content" => htmlspecialchars($request->content),
+            "user" => intval($request->user),
+            "added_time" => date("Y-m-d/H:i:s"),
+            "is_completed" => false
+        ];
+        $create = Todo::create($data);
+        return new TodoResource($create);
     }
 
     /**
@@ -47,18 +46,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Todo $todo)
-    {
-        //
+        return new TodoResource($todo);
     }
 
     /**
@@ -70,7 +58,14 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        //
+        $data = [
+            "content" => $request->content ? htmlspecialchars($request->content) : $todo->content,
+        ];
+        $update = Todo::where("id", $todo->id);
+        $update = Todo::where("id", $todo->id)->update(["is_completed" => $request->isCompleted ?? $todo->is_completed]); /* because it is boolean */
+
+        $todo = Todo::where("id", $todo->id)->first();
+        return new TodoResource($todo);
     }
 
     /**
@@ -81,6 +76,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return "Todo Successfully Deleted";
     }
 }

@@ -10,7 +10,15 @@ class User extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "full_name",
+        "username",
+        "password",
+        "email",
+        "type",
+    ];
+
     public function todo() {
-        return $this->hasOne(Todo::class, "user", "id");
+        return $this->hasMany(Todo::class, "user", "id");
     }
 }

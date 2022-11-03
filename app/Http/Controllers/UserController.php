@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
@@ -15,17 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return new UserCollection(User::get());
     }
 
     /**
@@ -36,7 +29,15 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $data = [
+            "full_name" => Str::lower($request->fullName),
+            "username" => Str::slug($request->username),
+            "password" => $request->password,
+            "email" => Str::lower($request->email),
+            "type" => Str::lower($request->type),
+        ];
+        $create = User::create($data);
+        return new UserResource($create);
     }
 
     /**
@@ -47,18 +48,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        return new UserResource($user);
     }
 
     /**
@@ -70,7 +60,16 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = [
+            "full_name" => $request->fullName ? Str::lower($request->fullName) : $user->full_name,
+            "username" => $request->username ? Str::slug($request->username) : $user->username,
+            "password" => $request->password ? $request->password : $user->password,
+            "email" => $request->email ? Str::lower($request->email) : $user->email,
+            "type" => $request->type ? Str::lower($request->type) : $user->type,
+        ];
+        $update = User::where("id", $user->id)->update($data);
+        $user = User::where("id", $user->id)->first();
+        return new UserResource($user);
     }
 
     /**
@@ -81,6 +80,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return "User Successfully Deleted";
     }
 }

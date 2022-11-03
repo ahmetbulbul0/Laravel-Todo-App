@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,11 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "fullName" => ["nullable", "string"],
+            "username" => ["nullable", "string", "unique:users,username"],
+            "password" => ["nullable", "string"],
+            "email" => ["nullable", "email", "unique:users,email"],
+            "type" => ["nullable", "string", Rule::in(["user", "system"])],
         ];
     }
 }
