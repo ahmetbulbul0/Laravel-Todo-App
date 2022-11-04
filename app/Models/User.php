@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Models\Todo;
-use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         "full_name",
@@ -18,7 +20,8 @@ class User extends Model
         "type",
     ];
 
-    public function todo() {
+    public function todo()
+    {
         return $this->hasMany(Todo::class, "user", "id");
     }
 }

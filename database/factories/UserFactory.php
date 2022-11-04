@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class UserFactory extends Factory
     {
         $full_name = $this->faker->name();
         $username = Str::slug($full_name);
-        $password = $this->faker->password(5, 10);
+        $password = Hash::make('userpass');
         $email = $this->faker->email();
         $type = "user";
 

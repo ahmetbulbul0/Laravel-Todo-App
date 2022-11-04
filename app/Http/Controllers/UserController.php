@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserCollection;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -63,7 +64,7 @@ class UserController extends Controller
         $data = [
             "full_name" => $request->fullName ? Str::lower($request->fullName) : $user->full_name,
             "username" => $request->username ? Str::slug($request->username) : $user->username,
-            "password" => $request->password ? $request->password : $user->password,
+            "password" => $request->password ? Hash::make($request->password) : $user->password,
             "email" => $request->email ? Str::lower($request->email) : $user->email,
             "type" => $request->type ? Str::lower($request->type) : $user->type,
         ];
