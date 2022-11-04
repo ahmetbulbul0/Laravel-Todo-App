@@ -1,6 +1,4 @@
-@extends('layout', ['title' => 'Todo Detail'])
-
-@section('body')
+<template>
     <div class="container">
         <div class="md-box">
             <div class="header">
@@ -8,11 +6,12 @@
                     <span>Todo Detail</span>
                 </div>
                 <div class="links">
-                    <a href="{{ route('todo-edit') }}" class="bg-green link"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="#" class="bg-red link"><i class="fa-solid fa-trash"></i></a>
-                    <a href="{{ route('todo-list') }}" class="bg-redPink link">My Todo's</a>
-                    <a href="{{ route('todo-add') }}" class="bg-redPink link">Add Todo</a>
-                    <a href="{{ route('log-out') }}" class="bg-redPink link">Log Out</a>
+                    <router-link :to="{ name: 'TodoEdit', params: { todoId: 1 } }" class="bg-green link"><i class="fa-solid fa-pen-to-square"></i></router-link>
+                    <router-link :to="{ name: 'TodoDelete', params: { todoId: 1 } }" class="bg-red link"><i class="fa-solid fa-trash"></i></router-link>
+
+                    <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
+                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
+                    <router-link :to="{ name: 'LogOut' }" class="bg-redPink link">Log Out</router-link>
                 </div>
             </div>
             <div class="list">
@@ -38,4 +37,8 @@
             </div>
         </div>
     </div>
-@endsection
+</template>
+
+<script setup>
+
+</script>

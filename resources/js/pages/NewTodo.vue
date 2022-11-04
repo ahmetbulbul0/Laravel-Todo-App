@@ -1,6 +1,4 @@
-@extends('layout', ['title' => 'Todo Add'])
-
-@section('body')
+<template>
     <div class="container">
         <div class="md-box">
             <div class="header">
@@ -8,8 +6,8 @@
                     <span>Todo Add</span>
                 </div>
                 <div class="links">
-                    <a href="{{ route("todo-add") }}" class="bg-redPink link">Add Todo</a>
-                    <a href="{{ route("log-out") }}" class="bg-redPink link">Log Out</a>
+                    <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
+                    <router-link :to="{ name: 'LogOut' }" class="bg-redPink link">Log Out</router-link>
                 </div>
             </div>
             <form class="form mt12">
@@ -23,4 +21,8 @@
             </form>
         </div>
     </div>
-@endsection
+</template>
+
+<script setup>
+
+</script>

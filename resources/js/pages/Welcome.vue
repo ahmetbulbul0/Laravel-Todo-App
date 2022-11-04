@@ -1,6 +1,4 @@
-@extends('layout', ['title' => 'Home'])
-
-@section('body')
+<template>
     <div class="container">
         <div class="sm-box">
             <div class="title size120">
@@ -8,12 +6,15 @@
             </div>
             <div class="list">
                 <div class="item center">
-                    <a class="fullBtn bg-redPink" href="{{ route("login") }}">Login</a>
+                    <router-link class="fullBtn bg-redPink" :to="{ name: 'Login' }">Login</router-link>
                 </div>
                 <div class="item center">
-                    <a class="fullBtn bg-redPink" href="{{ route("register") }}">Register</a>
+                    <router-link class="fullBtn bg-redPink" :to="{ name: 'Register' }">Register</router-link>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+</template>
+
+<script setup>
+</script>

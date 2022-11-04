@@ -1,13 +1,11 @@
-@extends('layout', ['title' => 'Login'])
-
-@section('body')
+<template>
     <div class="container">
         <div class="sm-box">
             <div class="title size120">
                 <span>Login</span>
             </div>
             <div class="subText mt6">
-                <span>if you don't have an account, <a href="{{ route("register") }}">Register Here</a></span>
+                <span>if you don't have an account, <router-link :to="{ name: 'Register' }">Register Here</router-link></span>
             </div>
             <form class="form mt12">
                 <div class="line">
@@ -24,4 +22,7 @@
             </form>
         </div>
     </div>
-@endsection
+</template>
+
+<script setup>
+</script>
