@@ -33,7 +33,7 @@ class UserController extends Controller
         $data = [
             "full_name" => Str::lower($request->fullName),
             "username" => Str::slug($request->username),
-            "password" => $request->password,
+            "password" => Hash::make($request->password),
             "email" => Str::lower($request->email),
             "type" => Str::lower($request->type),
         ];

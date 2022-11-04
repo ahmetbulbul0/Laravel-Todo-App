@@ -17,4 +17,13 @@
 </template>
 
 <script setup>
+
+import { useStore } from 'vuex';
+import router from '../router';
+const store = useStore();
+
+if (store.state.basicToken) {
+    router.push({ name: "MyTodos" });
+}
+
 </script>

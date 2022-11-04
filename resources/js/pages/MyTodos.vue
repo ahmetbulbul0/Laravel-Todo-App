@@ -16,7 +16,7 @@
                 </div>
                 <div class="links">
                     <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
-                    <router-link :to="{ name: 'LogOut' }" class="bg-redPink link">Log Out</router-link>
+                    <router-link :to="{ name: 'Welcome' }" class="bg-redPink link" @click="store.commit('logOut')">Log Out</router-link>
                 </div>
             </div>
             <div class="header">
@@ -52,4 +52,8 @@
 </template>
 
 <script setup>
+
+import { useStore } from 'vuex';
+const store = useStore();
+
 </script>
