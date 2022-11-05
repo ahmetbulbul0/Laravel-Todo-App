@@ -38,21 +38,6 @@ const router = createRouter({
             path: "/todo-edit/:todoId",
             component: () => import("../pages/TodoEdit.vue"),
         },
-        {
-            name: "LogOut",
-            path: "/log-out",
-            component: () => import("../pages/TodoEdit.vue"),
-        },
-        {
-            name: "TodoDelete",
-            path: "/log-out",
-            component: () => import("../pages/TodoEdit.vue"),
-        },
-        {
-            name: "IsComplete",
-            path: "/log-out",
-            component: () => import("../pages/TodoEdit.vue"),
-        },
     ],
 });
 
