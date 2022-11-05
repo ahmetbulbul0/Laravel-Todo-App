@@ -57,12 +57,4 @@ import router from "../router";
 import { useStore } from 'vuex';
 const store = useStore();
 
-
-if (!store.state.basicToken) {
-    router.push({ name: "Login" });
-}
-
-store.dispatch("getTodos");
-
-
 </script>

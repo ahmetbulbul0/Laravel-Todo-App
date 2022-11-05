@@ -13,31 +13,23 @@ export default createStore({
         fullNameError: "",
         usernameError: "",
         passwordError: "",
-        emailError: ""
+        emailError: "",
     },
-    getters: {
-    },
+    getters: {},
     mutations: {
-        setTokens(state, tokens) {
-            state.basicToken = tokens.basic;
-            state.adminToken = tokens.admin;
-            state.userToken = tokens.user;
-            localStorage.setItem('basicToken', tokens.basic);
-            localStorage.setItem('adminToken', tokens.admin);
-            localStorage.setItem('userToken', tokens.user);
+        setToken(state, token) {
+            localStorage.setItem("token", token);
         },
         setUser(state, user) {
-            state.username = user.username;
-            state.fullName = user.full_name;
-            localStorage.setItem('username', user.username);
-            localStorage.setItem('fullName', user.full_name);
+            localStorage.setItem("username", user.username);
+            localStorage.setItem("fullName", user.full_name);
         },
         logOut(state) {
-            localStorage.removeItem('basicToken');
-            localStorage.removeItem('adminToken');
-            localStorage.removeItem('userToken');
-            localStorage.removeItem('username');
-            localStorage.removeItem('fullName');
+            localStorage.removeItem("basicToken");
+            localStorage.removeItem("adminToken");
+            localStorage.removeItem("userToken");
+            localStorage.removeItem("username");
+            localStorage.removeItem("fullName");
             router.push({ name: "Login" });
         },
         loginError(state) {
@@ -56,8 +48,13 @@ export default createStore({
             if (errors.email) {
                 state.emailError = errors.email[0];
             }
-            router.push({ name: "Register" });
-        }
+        },
+        resetRegisterErrors(state) {
+            state.fullNameError = null;
+            state.usernameError = null;
+            state.passwordError = null;
+            state.emailError = null;
+        },
     },
     actions: {
         async login(state, fData) {
@@ -65,47 +62,51 @@ export default createStore({
                 email: fData.email,
                 password: fData.password,
             };
-            await axios.post("http://localhost:8000/api/login", { email: data.email, password: data.password }).then(function (res) {
-                if (res.data.user && res.data.tokens) {
-                    var user = res.data.user;
-                    var tokens = res.data.tokens;
-                    console.log("user", user, "tokens", tokens);
-                    state.commit("setTokens", tokens);
-                    state.commit("setUser", user);
-                    router.push({ name: 'MyTodos' })
-                } else {
-                    state.commit("loginError")
-                }
-            });
+            await axios
+                .post("http://localhost:8000/api/login", {
+                    email: data.email,
+                    password: data.password,
+                })
+                .then(function (res) {
+                    if (res.data.user && res.data.token && res.data.status == "ok") {
+                        var user = res.data.user;
+                        var token = res.data.token;
+                        state.commit("setToken", token);
+                        state.commit("setUser", user);
+                        router.push({ name: "MyTodos" });
+                    } else {
+                        state.commit("loginError");
+                    }
+                });
         },
         async register(state, fData) {
-            state.fullNameError = '';
-            state.usernameError = '';
-            state.passwordError = '';
-            state.emailError = '';
+            state.commit("resetRegisterErrors");
 
             const data = {
                 fullName: fData.fullName,
                 username: fData.username,
                 password: fData.password,
                 email: fData.email,
-                type: "user"
+                type: "user",
             };
 
-            await axios.post("http://localhost:8000/api/users", data).catch(function (error) {
-                if (error.response) {
-                    state.commit("registerErrors", error.response.data.errors)
-                }
-            });
-            if (!state.registerErrors) {
-                state.dispatch("login", { email: data.email, password: data.password });
-            }
+            await axios
+                .post("http://localhost:8000/api/register", data)
+                .catch(function (error) {
+                    state.commit("registerErrors", error.response.data.errors);
+                }).then(function (res) {
+                    if (res) {
+                        state.dispatch("login", {
+                            email: data.email,
+                            password: data.password,
+                        });
+                    }
+                });
         },
         async getTodos(state) {
             const todos = await getRequest("todos");
             console.log(todos);
-        }
+        },
     },
-    modules: {
-    }
-})
+    modules: {},
+});
