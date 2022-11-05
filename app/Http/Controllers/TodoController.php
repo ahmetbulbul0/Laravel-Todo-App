@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Http\Resources\TodoCollection;
 use App\Http\Resources\TodoResource;
+use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
@@ -15,9 +16,13 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new TodoCollection(Todo::get());
+        if ($request->user()->currentAccessToken()->can("all-todos-list")) {
+            return new TodoCollection(Todo::get());
+        } else {
+            return new TodoCollection(Todo::where("user", $request->user()->id)->get());
+        }
     }
 
     /**
@@ -28,14 +33,16 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        $data = [
-            "content" => htmlspecialchars($request->content),
-            "user" => intval($request->user),
-            "added_time" => date("Y-m-d/H:i:s"),
-            "is_completed" => false
-        ];
-        $create = Todo::create($data);
-        return new TodoResource($create);
+        if ($request->user()->currentAccessToken()->can("todo-create")) {
+            $data = [
+                "content" => htmlspecialchars($request->content),
+                "user" => $request->user()->id,
+                "added_time" => date("Y-m-d/H:i:s"),
+                "is_completed" => false
+            ];
+            $create = Todo::create($data);
+            return new TodoResource($create);
+        }
     }
 
     /**
@@ -44,9 +51,17 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function show(Todo $todo)
+    public function show(Todo $todo, Request $request)
     {
-        return new TodoResource($todo);
+        if ($request->user()->currentAccessToken()->can("all-todos-list")) {
+            return new TodoResource($todo);
+        } else {
+            if ($todo->user == $request->user()->id) {
+                return new TodoResource($todo);
+            } else {
+                return ["status" => "failed"];
+            }
+        }
     }
 
     /**
@@ -58,14 +73,29 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        $data = [
-            "content" => $request->content ? htmlspecialchars($request->content) : $todo->content,
-        ];
-        $update = Todo::where("id", $todo->id);
-        $update = Todo::where("id", $todo->id)->update(["is_completed" => $request->isCompleted ?? $todo->is_completed]); /* because it is boolean */
+        if ($request->user()->currentAccessToken()->can("all-todos-update")) {
+            $data = [
+                "content" => $request->content ? htmlspecialchars($request->content) : $todo->content,
+            ];
+            $update = Todo::where("id", $todo->id);
+            $update = Todo::where("id", $todo->id)->update(["is_completed" => $request->isCompleted ?? $todo->is_completed]); /* because it is boolean */
 
-        $todo = Todo::where("id", $todo->id)->first();
-        return new TodoResource($todo);
+            $todo = Todo::where("id", $todo->id)->first();
+            return new TodoResource($todo);
+        } else {
+            if ($todo->user == $request->user()->id) {
+                $data = [
+                    "content" => $request->content ? htmlspecialchars($request->content) : $todo->content,
+                ];
+                $update = Todo::where("id", $todo->id);
+                $update = Todo::where("id", $todo->id)->update(["is_completed" => $request->isCompleted ?? $todo->is_completed]); /* because it is boolean */
+
+                $todo = Todo::where("id", $todo->id)->first();
+                return new TodoResource($todo);
+            } else {
+                return ["status" => "failed"];
+            }
+        }
     }
 
     /**
@@ -74,9 +104,18 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Todo $todo)
+    public function destroy(Todo $todo, Request $request)
     {
-        $todo->delete();
-        return "Todo Successfully Deleted";
+        if ($request->user()->currentAccessToken()->can("all-todos-delete")) {
+            $todo->delete();
+            return "Todo Successfully Deleted";
+        } else {
+            if ($todo->user == $request->user()->id) {
+                $todo->delete();
+                return "Todo Successfully Deleted";
+            } else {
+                return ["status" => "failed"];
+            }
+        }
     }
 }

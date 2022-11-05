@@ -21,27 +21,26 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            $basicToken = $user->createToken('basic-token');
-
             switch ($user->type) {
                 case 'admin':
-                    $adminToken = $user->createToken('admin-token');
+                    $token = $user->createToken('token', ["all-todos-list", "all-todos-delete", "all-todos-update"]);
                     break;
                 case 'user':
-                    $userToken = $user->createToken('user-token');
+                    $token = $user->createToken('token', ["todo-create"]);
                     break;
                 default:
-                    $userToken = $user->createToken('user-token');
+                    $token = $user->createToken('token', ["todo-create"]);
                     break;
             }
 
             return [
+                "status" => "ok",
                 "user" => $user,
-                "tokens" => [
-                    'basic' => $basicToken->plainTextToken,
-                    'admin' => isset($adminToken) ? $adminToken->plainTextToken : null,
-                    'user' => isset($userToken) ? $userToken->plainTextToken : null
-                ]
+                "token" => $token->plainTextToken
+            ];
+        } else {
+            return [
+                "status" => "failed"
             ];
         }
     }

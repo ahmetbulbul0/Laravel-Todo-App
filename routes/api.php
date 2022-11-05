@@ -16,8 +16,8 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::apiResource('todos', TodoController::class);
-Route::apiResource('users', UserController::class);
+Route::apiResource('todos', TodoController::class)->middleware("auth:sanctum");
+Route::apiResource('users', UserController::class)->middleware("auth:sanctum");
 
 Route::post('login', [LoginController::class, 'index']);
 

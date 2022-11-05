@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('app');})->name("Welcome");
 Route::get('/register', function () {return view('app');})->name("Register");
-Route::get('/login', function () {return view('app');})->name("Login");
+Route::get('/login', function () {return view('app');})->name("login");
 Route::get('/my-todos', function () {return view('app');})->name("MyTodos");
 Route::get('/new-todo', function () {return view('app');})->name("NewTodo");
 Route::get('/todo-detail/{todoId}', function () {return view('app');})->name("TodoDetail");
