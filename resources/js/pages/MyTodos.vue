@@ -16,7 +16,7 @@
                 </div>
                 <div class="links">
                     <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
-                    <router-link :to="{ name: 'Welcome' }" class="bg-redPink link" @click="store.commit('logOut')">Log Out</router-link>
+                    <a class="bg-redPink link" @click="store.commit('logOut')">Log Out</a>
                 </div>
             </div>
             <div class="header">
@@ -37,12 +37,12 @@
             <div class="list">
                 <div class="item column3 between">
                     <div class="links">
-                        <router-link :to="{ name: 'IsComplete' }" class="bg-darkGreen1 hoverGreen1 icon"><i class="fa-regular fa-circle-check"></i></router-link>
+                        <router-link :to="{ name: 'Welcome' }" class="bg-darkGreen1 hoverGreen1 icon"><i class="fa-regular fa-circle-check"></i></router-link>
                         <router-link :to="{ name: 'TodoDetail', params: { todoId: 1 } }">Aliqua qui ea magna aliquip esse minim officia. Labore magna dolor commodo veniam ex consectetur eiusmod est nulla. Nostrud aliqua fugiat anim incididunt nostrud ipsum veniam id do aliquip non pariatur consectetur voluptate. Ea aliqua nostrud commodo deserunt non ex occaecat irure sint tempor reprehenderit eiusmod voluptate cillum. Incididunt consequat Lorem id aute labore elit voluptate anim reprehenderit incididunt adipisicing. Est voluptate non nostrud elit anim ea. Laborum ad dolor ut nostrud in commodo esse ea.</router-link>
                     </div>
                     <div class="links">
                         <router-link :to="{ name: 'TodoDetail', params: { todoId: 1 } }" class="bg-darkPink hoverPink icon"><i class="fa-solid fa-up-right-from-square"></i></router-link>
-                        <router-link :to="{ name: 'TodoDelete' }" class="bg-darkRed hoverRed icon"><i class="fa-solid fa-trash"></i></router-link>
+                        <router-link :to="{ name: 'Welcome' }" class="bg-darkRed hoverRed icon"><i class="fa-solid fa-trash"></i></router-link>
                         <router-link :to="{ name: 'TodoEdit', params: { todoId: 1 } }" class="bg-darkGreen hoverGreen icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
                     </div>
                 </div>
@@ -53,10 +53,16 @@
 
 <script setup>
 
+import router from "../router";
 import { useStore } from 'vuex';
 const store = useStore();
 
 
+if (!store.state.basicToken) {
+    router.push({ name: "Login" });
+}
+
+store.dispatch("getTodos");
 
 
 </script>

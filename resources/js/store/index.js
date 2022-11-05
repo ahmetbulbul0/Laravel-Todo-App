@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import router from "../router";
+import { getRequest } from "../api";
 
 export default createStore({
     state: {
@@ -31,12 +32,13 @@ export default createStore({
             localStorage.setItem('username', user.username);
             localStorage.setItem('fullName', user.full_name);
         },
-        logOut(state, user) {
+        logOut(state) {
             localStorage.removeItem('basicToken');
             localStorage.removeItem('adminToken');
             localStorage.removeItem('userToken');
             localStorage.removeItem('username');
             localStorage.removeItem('fullName');
+            router.push({ name: "Login" });
         },
         loginError(state) {
             state.loginError = "Login Failed";
@@ -63,7 +65,6 @@ export default createStore({
                 email: fData.email,
                 password: fData.password,
             };
-
             await axios.post("http://localhost:8000/api/login", { email: data.email, password: data.password }).then(function (res) {
                 if (res.data.user && res.data.tokens) {
                     var user = res.data.user;
@@ -99,6 +100,10 @@ export default createStore({
             if (!state.registerErrors) {
                 state.dispatch("login", { email: data.email, password: data.password });
             }
+        },
+        async getTodos(state) {
+            const todos = await getRequest("todos");
+            console.log(todos);
         }
     },
     modules: {
