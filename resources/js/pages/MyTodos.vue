@@ -34,18 +34,19 @@
                     <input type="text" placeholder="Searh in my todos...">
                 </div>
             </div>
-            <div class="list">
-                <div class="item column3 between">
+            <div class="list" v-if="todos.data.data.length > 0">
+                <div class="item column3 between" v-for="todo in todos.data.data" :key="todo.id">
                     <div class="links">
-                        <router-link :to="{ name: 'Welcome' }" class="bg-darkGreen1 hoverGreen1 icon"><i class="fa-regular fa-circle-check"></i></router-link>
-                        <router-link :to="{ name: 'TodoDetail', params: { todoId: 1 } }">Aliqua qui ea magna aliquip esse minim officia. Labore magna dolor commodo veniam ex consectetur eiusmod est nulla. Nostrud aliqua fugiat anim incididunt nostrud ipsum veniam id do aliquip non pariatur consectetur voluptate. Ea aliqua nostrud commodo deserunt non ex occaecat irure sint tempor reprehenderit eiusmod voluptate cillum. Incididunt consequat Lorem id aute labore elit voluptate anim reprehenderit incididunt adipisicing. Est voluptate non nostrud elit anim ea. Laborum ad dolor ut nostrud in commodo esse ea.</router-link>
+                        <a class="bg-darkGreen1 hoverGreen1 icon"><i class="fa-regular fa-circle-check"></i></a>
+                        <router-link :to="{ name: 'TodoDetail', params: { todoId: todo.id } }">{{ todo.content }}</router-link>
                     </div>
                     <div class="links">
-                        <router-link :to="{ name: 'TodoDetail', params: { todoId: 1 } }" class="bg-darkPink hoverPink icon"><i class="fa-solid fa-up-right-from-square"></i></router-link>
-                        <router-link :to="{ name: 'Welcome' }" class="bg-darkRed hoverRed icon"><i class="fa-solid fa-trash"></i></router-link>
-                        <router-link :to="{ name: 'TodoEdit', params: { todoId: 1 } }" class="bg-darkGreen hoverGreen icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
+                        <router-link :to="{ name: 'TodoDetail', params: { todoId: todo.id } }" class="bg-darkPink hoverPink icon"><i class="fa-solid fa-up-right-from-square"></i></router-link>
+                        <a class="bg-darkRed hoverRed icon"><i class="fa-solid fa-trash"></i></a>
+                        <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-darkGreen hoverGreen icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -54,7 +55,14 @@
 <script setup>
 
 import router from "../router";
+import { getRequest } from "../api";
 import { useStore } from 'vuex';
 const store = useStore();
+
+if (!store.state.token) {
+    router.push({ name: "Login" });
+}
+
+const todos = await getRequest("todos", store.state.token);
 
 </script>

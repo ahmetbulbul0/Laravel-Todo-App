@@ -15,6 +15,7 @@ class TodoResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "id" => $this->id,
             "content" => $this->content,
             "user" => $this->user,
             "addedTime" => $this->added_time,

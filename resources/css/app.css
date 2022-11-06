@@ -78,6 +78,8 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    padding: 50px;
 }
 .sm-box, .md-box {
     background-color: var(--dark-blue);

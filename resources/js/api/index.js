@@ -3,12 +3,25 @@ import axios from "axios";
 const API_URL = "http://localhost:8000/api/";
 
 const instance = axios.create({
-    baseURL: API_URL
+    baseURL: API_URL,
 });
 
-async function getRequest(url) {
-  const data = await instance.get(url);
-  return data;
+async function getRequest(url, token) {
+    const data = await instance.get(url, {
+        headers: { Authorization: "Bearer " + token },
+    });
+    return data;
 }
 
-export { getRequest };
+async function postRequest(url, data, token) {
+    const post = await instance.post(
+        url,
+        data,
+        {
+            headers: { Authorization: "Bearer " + token }
+        }
+    );
+    return post;
+}
+
+export { getRequest, postRequest };

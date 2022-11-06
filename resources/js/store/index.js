@@ -4,12 +4,12 @@ import { getRequest } from "../api";
 
 export default createStore({
     state: {
-        basicToken: localStorage.basicToken,
-        adminToken: localStorage.adminToken,
-        userToken: localStorage.userToken,
+        token: localStorage.token,
         username: localStorage.username,
         fullName: localStorage.fullName,
+
         loginError: "",
+
         fullNameError: "",
         usernameError: "",
         passwordError: "",
@@ -25,9 +25,7 @@ export default createStore({
             localStorage.setItem("fullName", user.full_name);
         },
         logOut(state) {
-            localStorage.removeItem("basicToken");
-            localStorage.removeItem("adminToken");
-            localStorage.removeItem("userToken");
+            localStorage.removeItem("token");
             localStorage.removeItem("username");
             localStorage.removeItem("fullName");
             router.push({ name: "Login" });
