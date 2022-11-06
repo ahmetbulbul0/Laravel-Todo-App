@@ -7,13 +7,22 @@ const instance = axios.create({
 });
 
 async function getRequest(url, token) {
-    const data = await instance.get(url, {
-        headers: { Authorization: "Bearer " + token },
+    const get = await instance.get(url, {
+        headers: { Authorization: "Bearer " + token }
     });
-    return data;
+    return get;
 }
 
-async function postRequest(url, data, token) {
+async function getRequestUrlValue(url, token, value) {
+    const get = await instance.get(url+"/"+value, {
+        headers: { Authorization: "Bearer " + token }
+    }).catch(function (errors) {
+        return errors;
+    });
+    return get;
+}
+
+async function postRequest(url, token, data) {
     const post = await instance.post(
         url,
         data,
@@ -24,4 +33,4 @@ async function postRequest(url, data, token) {
     return post;
 }
 
-export { getRequest, postRequest };
+export { getRequest, postRequest, getRequestUrlValue };

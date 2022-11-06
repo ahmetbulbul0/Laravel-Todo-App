@@ -49,8 +49,8 @@ const content = ref("");
 async function newTodo() {
     const todo = await postRequest(
         "todos",
-        { content: content.value },
-        store.state.token
+        store.state.token,
+        { content: content.value }
     );
     router.push({ name: "MyTodos" });
 }

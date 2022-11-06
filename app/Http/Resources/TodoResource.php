@@ -17,7 +17,7 @@ class TodoResource extends JsonResource
         return [
             "id" => $this->id,
             "content" => $this->content,
-            "user" => $this->user,
+            "user" => new UserResource($this->whenLoaded("userData")),
             "addedTime" => $this->added_time,
             "isCompleted" => $this->is_completed
         ];

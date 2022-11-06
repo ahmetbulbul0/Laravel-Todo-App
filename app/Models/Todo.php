@@ -16,7 +16,7 @@ class Todo extends Model
         "is_completed",
     ];
 
-    public function user() {
-        return $this->hasOne(Todo::class, "id", "user");
+    public function userData() {
+        return $this->hasOne(User::class, "id", "user");
     }
 }

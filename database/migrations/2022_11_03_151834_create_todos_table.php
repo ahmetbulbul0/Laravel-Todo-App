@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->longText("content");
             $table->integer("user");
-            $table->date("added_time");
+            $table->dateTime("added_time");
             $table->boolean("is_completed");
             $table->timestamps();
         });

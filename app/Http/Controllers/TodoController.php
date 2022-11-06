@@ -53,6 +53,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo, Request $request)
     {
+        $todo = Todo::where("id", $todo->id)->with("userData")->first();
         if ($request->user()->currentAccessToken()->can("all-todos-list")) {
             return new TodoResource($todo);
         } else {

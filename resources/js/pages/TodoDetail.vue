@@ -6,33 +6,34 @@
                     <span>Todo Detail</span>
                 </div>
                 <div class="links">
-                    <router-link :to="{ name: 'TodoEdit', params: { todoId: 1 } }" class="bg-green link"><i class="fa-solid fa-pen-to-square"></i></router-link>
-                    <router-link :to="{ name: 'TodoDelete', params: { todoId: 1 } }" class="bg-red link"><i class="fa-solid fa-trash"></i></router-link>
-
+                    <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-green link">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </router-link>
+                    <a class="bg-red link"><i class="fa-solid fa-trash"></i></a>
                     <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
                     <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
-                    <router-link :to="{ name: 'LogOut' }" class="bg-redPink link">Log Out</router-link>
+                    <a class="bg-redPink link" @click="store.commit('logOut')">Log Out</a>
                 </div>
             </div>
             <div class="list">
                 <div class="item block">
                     <label>Content:</label>
-                    <textarea class="mt12 h140">Consectetur sit est do cupidatat enim quis eu sunt aliquip dolore eu quis. Culpa elit id consequat nisi mollit. Sint tempor deserunt ex consectetur nisi enim adipisicing deserunt cupidatat proident. Ad irure magna aliquip enim laboris proident ullamco aute nisi. Velit eiusmod ea culpa aliqua nisi aliqua quis.</textarea>
+                    <textarea class="mt12 h140" v-model="todo.content">{ todo.content }</textarea>
                 </div>
                 <div class="item block">
                     <label>Added Time:</label>
                     <div class="item">
-                        <input type="date" value="2002-04-02" readonly>
-                        <input type="time" value="12:45" readonly>
+                        <input type="date" v-model="addedDate" readonly />
+                        <input type="time" v-model="addedTime" readonly />
                     </div>
                 </div>
                 <div class="item block">
                     <label>Is Completed:</label>
-                    <input type="text" value="no" readonly  class="mt12">
+                    <input type="text" v-model="isCompleted" class="mt12" readonly />
                 </div>
                 <div class="item block">
                     <label>User:</label>
-                    <input type="text" value="Ahmet Bülbül (ahmetbulbul)" readonly class="mt12">
+                    <input type="text" v-model="user" readonly class="mt12" />
                 </div>
             </div>
         </div>
@@ -40,5 +41,29 @@
 </template>
 
 <script setup>
+import router from "../router";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { getRequestUrlValue } from "../api";
+const route = useRoute();
+const store = useStore();
 
+const todoId = route.params.todoId;
+
+var todo = await getRequestUrlValue("todos", store.state.token, todoId);
+
+if (todo.response && todo.response.status == 404) {
+    router.push({ name: "MyTodos" });
+}
+
+todo = todo.data.data;
+
+const splitAddedTime = todo.addedTime.split(" ");
+
+const addedDate = splitAddedTime[0];
+const addedTime = splitAddedTime[1];
+
+const user = todo.user.fullName + " (" + todo.user.username + ")";
+
+const isCompleted = todo.isCompleted ? "yes" : "no";
 </script>
