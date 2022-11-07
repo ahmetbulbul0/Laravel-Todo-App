@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="!store.state.token">
         <div class="sm-box">
             <div class="title size120">
                 <span>Login</span>
@@ -33,8 +33,15 @@ import router from "../router";
 import { useStore } from 'vuex';
 const store = useStore();
 
+if (store.state.token) {
+    router.push({ name: "MyTodos" });
+}
+
 const email = ref('');
 const password = ref('');
 var signInError = ref('');
+
+
+
 
 </script>

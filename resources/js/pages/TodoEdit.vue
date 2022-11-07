@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="store.state.token">
         <div class="md-box">
             <div class="header">
                 <div class="title size140">
@@ -46,28 +46,36 @@ import { getRequestUrlValue, patchRequestUrlValue } from "../api";
 const route = useRoute();
 const store = useStore();
 
-const todoId = route.params.todoId;
-
-var todo = await getRequestUrlValue("todos", store.state.token, todoId);
-
-if (todo.response && todo.response.status == 404) {
-    router.push({ name: "MyTodos" });
+if (!store.state.token) {
+    router.push({ name: "Login" });
 }
 
-todo = todo.data.data;
+if (store.state.token) {
+    const todoId = route.params.todoId;
 
-async function updateTodo () {
-    const data = {
-        content: todo.content,
-        isCompleted: todo.isCompleted
-    };
-    await patchRequestUrlValue(
-        "todos",
-        store.state.token,
-        todoId,
-        data
-    );
-    router.push({ name: "MyTodos" });
+    var todo = await getRequestUrlValue("todos", store.state.token, todoId);
+
+    if (todo.response && todo.response.status == 404) {
+        router.push({ name: "MyTodos" });
+    }
+
+    todo = todo.data.data;
+
+    async function updateTodo () {
+        const data = {
+            content: todo.content,
+            isCompleted: todo.isCompleted
+        };
+        await patchRequestUrlValue(
+            "todos",
+            store.state.token,
+            todoId,
+            data
+        );
+        router.push({ name: "MyTodos" });
+    }
 }
+
+
 
 </script>

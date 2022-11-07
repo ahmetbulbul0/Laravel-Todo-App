@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="store.state.token">
         <div class="md-box">
             <div class="header">
                 <div class="title size140">
@@ -48,22 +48,30 @@ import { getRequestUrlValue } from "../api";
 const route = useRoute();
 const store = useStore();
 
-const todoId = route.params.todoId;
-
-var todo = await getRequestUrlValue("todos", store.state.token, todoId);
-
-if (todo.response && todo.response.status == 404) {
-    router.push({ name: "MyTodos" });
+if (!store.state.token) {
+    router.push({ name: "Login" });
 }
 
-todo = todo.data.data;
+if (store.state.token) {
+    const todoId = route.params.todoId;
 
-const splitAddedTime = todo.addedTime.split(" ");
+    var todo = await getRequestUrlValue("todos", store.state.token, todoId);
 
-const addedDate = splitAddedTime[0];
-const addedTime = splitAddedTime[1];
+    if (todo.response && todo.response.status == 404) {
+        router.push({ name: "MyTodos" });
+    }
 
-const user = todo.user.fullName + " (" + todo.user.username + ")";
+    todo = todo.data.data;
 
-const isCompleted = todo.isCompleted ? "yes" : "no";
+    const splitAddedTime = todo.addedTime.split(" ");
+
+    const addedDate = splitAddedTime[0];
+    const addedTime = splitAddedTime[1];
+
+    const user = todo.user.fullName + " (" + todo.user.username + ")";
+
+    const isCompleted = todo.isCompleted ? "yes" : "no";
+}
+
+
 </script>

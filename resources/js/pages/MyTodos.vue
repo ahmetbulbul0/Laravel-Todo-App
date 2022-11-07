@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="store.state.token">
         <div class="md-box">
             <div class="header">
                 <div class="title size140">
@@ -34,7 +34,7 @@
                     <input type="text" placeholder="Searh in my todos...">
                 </div>
             </div>
-            <div class="list" v-if="todos.data.data.length > 0">
+            <div class="list" v-if="todos && todos.data.data.length > 0">
                 <div class="item column3 between" v-for="todo in todos.data.data" :key="todo.id">
                     <div class="links">
                         <a class="bg-darkGreen1 hoverGreen1 icon"><i class="fa-regular fa-circle-check"></i></a>
@@ -53,12 +53,15 @@
 </template>
 
 <script setup>
-
 import router from "../router";
 import { getRequest } from "../api";
 import { useStore } from 'vuex';
-
+import { onErrorCaptured } from "@vue/runtime-core";
 const store = useStore();
+
+if (!store.state.token) {
+    router.push({ name: "Login" });
+}
 
 const todos = await getRequest("todos", store.state.token);
 

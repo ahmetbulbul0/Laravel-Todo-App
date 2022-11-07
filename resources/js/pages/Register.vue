@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="!store.state.token">
         <div class="sm-box">
             <div class="title size120">
                 <span>Register</span>
@@ -48,6 +48,10 @@
 import { ref } from "@vue/reactivity";
 import router from "../router";
 import store from "../store";
+
+if (store.state.token) {
+    router.push({ name: "MyTodos" });
+}
 
 const fullName = ref('');
 const username = ref('');
