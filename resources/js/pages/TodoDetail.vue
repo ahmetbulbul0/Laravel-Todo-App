@@ -1,24 +1,22 @@
 <template>
-    <div class="container" v-if="store.state.token">
+    <div class="container">
         <div class="md-box">
             <div class="header">
                 <div class="title size140">
                     <span>Todo Detail</span>
                 </div>
                 <div class="links">
-                    <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-green link">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </router-link>
-                    <a class="bg-red link"><i class="fa-solid fa-trash"></i></a>
+                    <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-green link"><i class="fa-solid fa-pen-to-square"></i></router-link>
+                    <a @click="deleteTodo(todo.id)" class="bg-red link"><i class="fa-solid fa-trash"></i></a>
                     <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
-                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
+                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
                     <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
                 </div>
             </div>
             <div class="list">
                 <div class="item block">
                     <label>Content:</label>
-                    <textarea class="mt12 h140" v-model="todo.content">{ todo.content }</textarea>
+                    <textarea class="mt12 h140" v-model="todo.content" readonly>{ todo.content }</textarea>
                 </div>
                 <div class="item block">
                     <label>Added Time:</label>
@@ -44,34 +42,38 @@
 import router from "../router";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { getRequestUrlValue } from "../api";
+import { getRequestUrlValue, deleteRequestUrlValue, patchRequestUrlValue } from "../api";
 const route = useRoute();
 const store = useStore();
 
-if (!store.state.token) {
-    router.push({ name: "Login" });
+const todoId = route.params.todoId;
+
+var todo = await getRequestUrlValue("todos", store.state.token, todoId);
+
+if (todo.response && todo.response.status == 404) {
+    router.push({ name: "MyTodos" });
 }
 
-if (store.state.token) {
-    const todoId = route.params.todoId;
+todo = todo.data.data;
 
-    var todo = await getRequestUrlValue("todos", store.state.token, todoId);
+const splitAddedTime = todo.addedTime.split(" ");
 
-    if (todo.response && todo.response.status == 404) {
-        router.push({ name: "MyTodos" });
-    }
+const addedDate = splitAddedTime[0];
+const addedTime = splitAddedTime[1];
 
-    todo = todo.data.data;
+const user = todo.user.fullName + " (" + todo.user.username + ")";
 
-    const splitAddedTime = todo.addedTime.split(" ");
+const isCompleted = todo.isCompleted ? "yes" : "no";
 
-    const addedDate = splitAddedTime[0];
-    const addedTime = splitAddedTime[1];
-
-    const user = todo.user.fullName + " (" + todo.user.username + ")";
-
-    const isCompleted = todo.isCompleted ? "yes" : "no";
+async function deleteTodo(todoId) {
+    await deleteRequestUrlValue("todos", store.state.token, todoId);
+    location.reload();
 }
 
+async function completeTodo(todoId) {
+    await patchRequestUrlValue("todos", store.state.token, todoId, { isCompleted: true });
+    router.push({ name: "MyTodos" });
+    location.reload();
+}
 
 </script>

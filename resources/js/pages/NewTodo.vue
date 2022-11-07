@@ -1,9 +1,9 @@
 <template>
-    <div class="container" v-if="store.state.token">
+    <div class="container">
         <div class="md-box">
             <div class="header">
                 <div class="title size140">
-                    <span>Todo Add</span>
+                    <span>New Todo</span>
                 </div>
                 <div class="links">
                     <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
@@ -34,22 +34,15 @@ import { ref } from "@vue/reactivity";
 import { postRequest } from "../api";
 const store = useStore();
 
-if (!store.state.token) {
-    router.push({ name: "Login" });
-}
-
-if (store.state.token) {
-    async function newTodo() {
-        const todo = await postRequest(
-            "todos",
-            store.state.token,
-            { content: content.value }
-        );
-        router.push({ name: "MyTodos" });
-    }
-}
-
 const content = ref("");
 
+async function newTodo() {
+    const todo = await postRequest(
+        "todos",
+        store.state.token,
+        { content: content.value }
+    );
+    router.push({ name: "MyTodos" });
+}
 
 </script>

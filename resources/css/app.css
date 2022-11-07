@@ -121,7 +121,7 @@ textarea {
 .list .item.block {
     display: block;
 }
-.list .item:not(:nth-child(1)) {
+.list .item:not(.column3):not(:nth-child(1)) {
     margin-top: 24px;
 }
 .list .item.center {justify-content: center;}
@@ -130,10 +130,10 @@ textarea {
     box-sizing: border-box;
     padding: 16px 32px;
     gap: 0 30px;
+    border-radius: 6px;
 }
 .list .item.column3:nth-child(odd) {
     background-color: #252635;
-    border-radius: 6px;
 }
 .fullBtn {
     font-size: 90%;

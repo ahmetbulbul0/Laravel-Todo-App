@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-if="store.state.token">
+    <div class="container">
         <div class="md-box">
             <div class="header">
                 <div class="title size140">
@@ -7,7 +7,7 @@
                 </div>
                 <div class="links">
                     <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
-                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
+                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
                     <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
                 </div>
             </div>
@@ -46,36 +46,25 @@ import { getRequestUrlValue, patchRequestUrlValue } from "../api";
 const route = useRoute();
 const store = useStore();
 
-if (!store.state.token) {
-    router.push({ name: "Login" });
+const todoId = route.params.todoId;
+
+var todo = await getRequestUrlValue("todos", store.state.token, todoId);
+
+todo = todo.data.data;
+
+async function updateTodo () {
+    const data = {
+        content: todo.content,
+        isCompleted: todo.isCompleted
+    };
+    await patchRequestUrlValue(
+        "todos",
+        store.state.token,
+        todoId,
+        data
+    );
+    router.push({ name: "MyTodos" });
 }
-
-if (store.state.token) {
-    const todoId = route.params.todoId;
-
-    var todo = await getRequestUrlValue("todos", store.state.token, todoId);
-
-    if (todo.response && todo.response.status == 404) {
-        router.push({ name: "MyTodos" });
-    }
-
-    todo = todo.data.data;
-
-    async function updateTodo () {
-        const data = {
-            content: todo.content,
-            isCompleted: todo.isCompleted
-        };
-        await patchRequestUrlValue(
-            "todos",
-            store.state.token,
-            todoId,
-            data
-        );
-        router.push({ name: "MyTodos" });
-    }
-}
-
 
 
 </script>

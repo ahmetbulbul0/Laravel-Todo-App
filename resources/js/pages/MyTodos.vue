@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-if="store.state.token">
+    <div class="container">
         <div class="md-box">
             <div class="header">
                 <div class="title size140">
@@ -15,7 +15,7 @@
                     </select>
                 </div>
                 <div class="links">
-                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
+                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
                     <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
                 </div>
             </div>
@@ -59,10 +59,6 @@ import { useStore } from 'vuex';
 import axios from "axios";
 const store = useStore();
 
-if (!store.state.token) {
-    router.push({ name: "Login" });
-}
-
 const todos = await getRequest("todos", store.state.token);
 
 async function deleteTodo(todoId) {
@@ -74,6 +70,4 @@ async function completeTodo(todoId) {
     await patchRequestUrlValue("todos", store.state.token, todoId, { isCompleted: true });
     location.reload();
 }
-
-
 </script>

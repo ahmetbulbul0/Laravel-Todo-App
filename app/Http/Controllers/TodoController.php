@@ -75,12 +75,12 @@ class TodoController extends Controller
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
         if ($request->user()->currentAccessToken()->can("all-todos-update")) {
-            $update = Todo::where("id", $todo->id)->update(["content" => $request->content ? htmlspecialchars($request->content) : $todo->content, "is_completed" => $request->isCompleted ? $request->isCompleted : $todo->is_completed]);
+            $update = Todo::where("id", $todo->id)->update(["content" => $request->content ? htmlspecialchars($request->content) : $todo->content, "is_completed" => $request->isCompleted]);
             $todo = Todo::where("id", $todo->id)->first();
             return new TodoResource($todo);
         } else {
             if ($todo->user == $request->user()->id) {
-                $update = Todo::where("id", $todo->id)->update(["content" => $request->content ? htmlspecialchars($request->content) : $todo->content, "is_completed" => $request->isCompleted ? $request->isCompleted : $todo->is_completed]);
+                $update = Todo::where("id", $todo->id)->update(["content" => $request->content ? htmlspecialchars($request->content) : $todo->content, "is_completed" => $request->isCompleted]);
                 $todo = Todo::where("id", $todo->id)->first();
                 return new TodoResource($todo);
             } else {
