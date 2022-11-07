@@ -75,22 +75,12 @@ class TodoController extends Controller
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
         if ($request->user()->currentAccessToken()->can("all-todos-update")) {
-            $data = [
-                "content" => $request->content ? htmlspecialchars($request->content) : $todo->content,
-            ];
-            $update = Todo::where("id", $todo->id);
-            $update = Todo::where("id", $todo->id)->update(["is_completed" => $request->isCompleted ?? $todo->is_completed]); /* because it is boolean */
-
+            $update = Todo::where("id", $todo->id)->update(["content" => $request->content ? htmlspecialchars($request->content) : $todo->content, "is_completed" => $request->isCompleted ? $request->isCompleted : $todo->is_completed]);
             $todo = Todo::where("id", $todo->id)->first();
             return new TodoResource($todo);
         } else {
             if ($todo->user == $request->user()->id) {
-                $data = [
-                    "content" => $request->content ? htmlspecialchars($request->content) : $todo->content,
-                ];
-                $update = Todo::where("id", $todo->id);
-                $update = Todo::where("id", $todo->id)->update(["is_completed" => $request->isCompleted ?? $todo->is_completed]); /* because it is boolean */
-
+                $update = Todo::where("id", $todo->id)->update(["content" => $request->content ? htmlspecialchars($request->content) : $todo->content, "is_completed" => $request->isCompleted ? $request->isCompleted : $todo->is_completed]);
                 $todo = Todo::where("id", $todo->id)->first();
                 return new TodoResource($todo);
             } else {

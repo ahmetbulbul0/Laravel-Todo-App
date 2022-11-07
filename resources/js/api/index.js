@@ -33,4 +33,15 @@ async function postRequest(url, token, data) {
     return post;
 }
 
-export { getRequest, postRequest, getRequestUrlValue };
+async function patchRequestUrlValue(url, token, value, data) {
+    const post = await instance.patch(
+        url+"/"+value,
+        data,
+        {
+            headers: { Authorization: "Bearer " + token }
+        }
+    );
+    return post;
+}
+
+export { getRequest, postRequest, getRequestUrlValue, patchRequestUrlValue };

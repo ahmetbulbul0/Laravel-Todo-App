@@ -29,7 +29,6 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
-import axios from "axios";
 import router from "../router";
 import { useStore } from 'vuex';
 const store = useStore();
@@ -40,7 +39,6 @@ if (store.state.basicToken) {
 
 const email = ref('');
 const password = ref('');
-
 var signInError = ref('');
 
 </script>
