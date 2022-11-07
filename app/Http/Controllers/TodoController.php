@@ -18,11 +18,41 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->user()->currentAccessToken()->can("all-todos-list")) {
-            return new TodoCollection(Todo::get());
-        } else {
-            return new TodoCollection(Todo::where("user", $request->user()->id)->get());
+        $data = new Todo();
+        if ($request->isCompleted) {
+            switch ($request->isCompleted) {
+                case 'yes':
+                    $data = $data->where("is_completed", true);
+                    break;
+                case 'no':
+                    $data = $data->where("is_completed", false);
+                    break;
+                default:
+                    break;
+            }
         }
+        switch ($request->sorting) {
+            case 'isCompleted09':
+                $data = $data->orderBy("is_completed", "ASC");
+                break;
+            case 'isCompleted90':
+                $data = $data->orderBy("is_completed", "DESC");
+                break;
+            case 'addedTime09':
+                $data = $data->orderBy("is_completed", "ASC");
+                break;
+            case 'addedTime90':
+                $data = $data->orderBy("is_completed", "DESC");
+                break;
+            default:
+                $data = $data->orderBy("added_time", "DESC");
+                break;
+        }
+        if (!$request->user()->currentAccessToken()->can("all-todos-list")) {
+            $data = $data->where("user", $request->user()->id);
+        }
+        $data = $data->get();
+        return new TodoCollection($data);
     }
 
     /**
