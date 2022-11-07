@@ -8,7 +8,7 @@
                 <div class="links">
                     <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
                     <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
-                    <a class="bg-redPink link" @click="store.commit('logOut')">Log Out</a>
+                    <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
                 </div>
             </div>
             <form class="form mt12" @submit.prevent="updateTodo">

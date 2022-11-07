@@ -12,7 +12,7 @@
                     <a class="bg-red link"><i class="fa-solid fa-trash"></i></a>
                     <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
                     <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">Add Todo</router-link>
-                    <a class="bg-redPink link" @click="store.commit('logOut')">Log Out</a>
+                    <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
                 </div>
             </div>
             <div class="list">

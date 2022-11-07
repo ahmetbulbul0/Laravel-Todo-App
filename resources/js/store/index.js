@@ -24,11 +24,10 @@ export default createStore({
             localStorage.setItem("username", user.username);
             localStorage.setItem("fullName", user.full_name);
         },
-        logOut(state) {
+        logOutData(state) {
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             localStorage.removeItem("fullName");
-            router.push({ name: "Login" });
         },
         loginError(state) {
             state.loginError = "Login Failed";
@@ -105,6 +104,10 @@ export default createStore({
             const todos = await getRequest("todos");
             console.log(todos);
         },
+        logOut (state) {
+            state.commit("logOutData");
+            router.push({ name: "Login" });
+        }
     },
     modules: {},
 });

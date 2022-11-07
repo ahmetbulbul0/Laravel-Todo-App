@@ -11,7 +11,7 @@
                         class="bg-redPink link"
                         >My Todo's</router-link
                     >
-                    <a class="bg-redPink link" @click="store.commit('logOut')"
+                    <a class="bg-redPink link" @click="store.dispatch('logOut')"
                         >Log Out</a
                     >
                 </div>
@@ -39,10 +39,6 @@ import { useStore } from "vuex";
 import { ref } from "@vue/reactivity";
 import { postRequest } from "../api";
 const store = useStore();
-
-if (!store.state.token) {
-    router.push({ name: "Login" });
-}
 
 const content = ref("");
 

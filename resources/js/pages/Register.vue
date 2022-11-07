@@ -49,10 +49,6 @@ import { ref } from "@vue/reactivity";
 import router from "../router";
 import store from "../store";
 
-if (store.state.basicToken) {
-    router.push({ name: "MyTodos" });
-}
-
 const fullName = ref('');
 const username = ref('');
 const password = ref('');
