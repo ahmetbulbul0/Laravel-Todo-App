@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import router from "../router";
 import { getRequest } from "../api";
+import axios from "axios";
 
 export default createStore({
     state: {
@@ -65,7 +66,11 @@ export default createStore({
                     password: data.password,
                 })
                 .then(function (res) {
-                    if (res.data.user && res.data.token && res.data.status == "ok") {
+                    if (
+                        res.data.user &&
+                        res.data.token &&
+                        res.data.status == "ok"
+                    ) {
                         var user = res.data.user;
                         var token = res.data.token;
                         state.commit("setToken", token);
@@ -91,7 +96,8 @@ export default createStore({
                 .post("http://localhost:8000/api/register", data)
                 .catch(function (error) {
                     state.commit("registerErrors", error.response.data.errors);
-                }).then(function (res) {
+                })
+                .then(function (res) {
                     if (res) {
                         state.dispatch("login", {
                             email: data.email,
@@ -102,12 +108,11 @@ export default createStore({
         },
         async getTodos(state) {
             const todos = await getRequest("todos");
-            console.log(todos);
         },
-        logOut (state) {
+        logOut(state) {
             state.commit("logOutData");
             router.push({ name: "Login" });
-        }
+        },
     },
     modules: {},
 });

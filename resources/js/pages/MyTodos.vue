@@ -35,14 +35,14 @@
                 </div>
             </div>
             <div class="list" v-if="todos && todos.data.data.length > 0">
-                <div class="item column3 between" v-for="todo in todos.data.data" :key="todo.id">
+                <div class="item column3 between" :class="{ 'bg-softGreen': todo.isCompleted }" v-for="todo in todos.data.data" :key="todo.id">
                     <div class="links">
-                        <a class="bg-darkGreen1 hoverGreen1 icon"><i class="fa-regular fa-circle-check"></i></a>
-                        <router-link :to="{ name: 'TodoDetail', params: { todoId: todo.id } }">{{ todo.content }}</router-link>
+                        <a @click="completeTodo(todo.id)" class="hoverGreen1 icon" :class="{ 'bg-darkGreen1': !todo.isCompleted, 'bg-green1': todo.isCompleted }"><i class="fa-regular fa-circle-check"></i></a>
+                        <router-link :to="{ name: 'TodoDetail', params: { todoId: todo.id } }" :class="{ lineThrough: todo.isCompleted }">{{ todo.content }}</router-link>
                     </div>
                     <div class="links">
                         <router-link :to="{ name: 'TodoDetail', params: { todoId: todo.id } }" class="bg-darkPink hoverPink icon"><i class="fa-solid fa-up-right-from-square"></i></router-link>
-                        <a class="bg-darkRed hoverRed icon"><i class="fa-solid fa-trash"></i></a>
+                        <a @click="deleteTodo(todo.id)" class="bg-darkRed hoverRed icon"><i class="fa-solid fa-trash"></i></a>
                         <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-darkGreen hoverGreen icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
                     </div>
                 </div>
@@ -54,9 +54,9 @@
 
 <script setup>
 import router from "../router";
-import { getRequest } from "../api";
+import { getRequest, deleteRequestUrlValue, patchRequestUrlValue } from "../api";
 import { useStore } from 'vuex';
-import { onErrorCaptured } from "@vue/runtime-core";
+import axios from "axios";
 const store = useStore();
 
 if (!store.state.token) {
@@ -64,5 +64,16 @@ if (!store.state.token) {
 }
 
 const todos = await getRequest("todos", store.state.token);
+
+async function deleteTodo(todoId) {
+    await deleteRequestUrlValue("todos", store.state.token, todoId);
+    location.reload();
+}
+
+async function completeTodo(todoId) {
+    await patchRequestUrlValue("todos", store.state.token, todoId, { isCompleted: true });
+    location.reload();
+}
+
 
 </script>

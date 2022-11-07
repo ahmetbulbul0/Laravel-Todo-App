@@ -13,6 +13,7 @@
     --green1: #39570b;
     --pink: #b465b8;
     --dark-pink: #b465b8a2;
+    --soft-green: #3e794f50;
 }
 .bg-redPink {background-color: var(--red-pink);}
 .bg-darkRed {background-color: var(--dark-red);}
@@ -27,6 +28,7 @@
 .hoverGreen1:hover {transition: .2s; background-color: var(--green1);}
 .hoverRed:hover {transition: .2s; background-color: var(--red);}
 .hoverPink:hover {transition: .2s; background-color: var(--pink);}
+.bg-softGreen {background-color: var(--soft-green) !important;}
 body {
     margin: 0;
     padding: 0;
@@ -237,3 +239,4 @@ textarea {
     align-items: center;
     width: 480px;
 }
+.lineThrough {text-decoration: line-through 2px;}

@@ -33,6 +33,12 @@ async function postRequest(url, token, data) {
     return post;
 }
 
+async function deleteRequestUrlValue(url, token, value) {
+    await instance.delete(url+"/"+value, {
+        headers: { Authorization: "Bearer " + token }
+    })
+}
+
 async function patchRequestUrlValue(url, token, value, data) {
     const post = await instance.patch(
         url+"/"+value,
@@ -44,4 +50,4 @@ async function patchRequestUrlValue(url, token, value, data) {
     return post;
 }
 
-export { getRequest, postRequest, getRequestUrlValue, patchRequestUrlValue };
+export { getRequest, postRequest, getRequestUrlValue, patchRequestUrlValue, deleteRequestUrlValue };
