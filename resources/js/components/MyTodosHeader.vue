@@ -5,7 +5,7 @@
         </div>
         <div class="select">
             <select v-model="sortingValue" @change="$emit('sorting', sortingValue)">
-                <option value="" disabled selected>Sorting</option>
+                <option value="" disabled :selected="sortingValue.value == ''">Sorting</option>
                 <option value="isCompleted09" :selected="sortingValue.value == 'isCompleted09'">First Incomplete Todo's</option>
                 <option value="isCompleted90" :selected="sortingValue.value == 'isCompleted90'">First Completed Todo's</option>
                 <option value="addedTime09" :selected="sortingValue.value == 'addedTime09'">First Newest</option>

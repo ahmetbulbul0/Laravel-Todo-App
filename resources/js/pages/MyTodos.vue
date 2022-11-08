@@ -39,13 +39,10 @@ const MyTodosHeader = defineAsyncComponent((todos) =>
     import("../components/MyTodosHeader.vue")
 );
 const store = useStore();
+
+store.commit("setPage", "");
+
 var todos = ref("");
-
-
-
-
-
-
 if (store.state.myTodosSorting && store.state.myTodosFilter && store.state.myTodosPage) {
     todos.value = await getRequestQuery("todos", store.state.token, {
         sorting: store.state.myTodosSorting,
@@ -82,10 +79,6 @@ if (store.state.myTodosSorting && store.state.myTodosFilter && store.state.myTod
 } else {
     todos.value = await getRequest("todos", store.state.token);
 }
-
-
-
-
 async function search (search) {
     todos.value = "";
     todos.value = await getRequestQuery("todos", store.state.token, {
@@ -95,9 +88,6 @@ async function search (search) {
     store.commit("setMyTodosFilter", "");
     store.commit("setPage", "");
 }
-
-
-
 async function filter(filterValue) {
     todos.value = null;
     if (store.state.myTodosSorting) {
