@@ -7,14 +7,14 @@
             <div class="subText mt6">
                 <span>if you don't have an account, <router-link :to="{ name: 'Register' }">Register Here</router-link></span>
             </div>
-            <form class="form mt12" @submit.prevent="store.dispatch('login', {email: email, password: password})">
+            <form class="form mt12" @submit="login">
                 <div class="line">
                     <label>Email:</label>
-                    <input type="text" class="mt6" v-model="email">
+                    <input type="text" class="mt6" v-model="email" required>
                 </div>
                 <div class="line">
                     <label>Password:</label>
-                    <input type="password" class="mt6" v-model="password">
+                    <input type="password" class="mt6" v-model="password" required>
                 </div>
                 <div class="line" v-if="store.state.loginError">
                     <label>{{ store.state.loginError }}</label>
@@ -36,4 +36,19 @@ const store = useStore();
 const email = ref('');
 const password = ref('');
 var signInError = ref('');
+
+function login(ev) {
+  ev.preventDefault();
+  const data = {
+        email: email.value,
+        password: password.value,
+    };
+  store
+    .dispatch("login", data)
+    .then(() => {
+      router.push({
+        name: "MyTodos",
+      });
+    })
+}
 </script>

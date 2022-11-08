@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="md-box">
-            <MyTodosHeader  @sorting="sorting" @filter="filter" />
+            <MyTodosHeader  @sorting="sorting" @filter="filter" @logOut="logOut" />
             <TodoList v-if="todos" :data="todos" @deleteTodo="deleteTodo" @completeTodo="completeTodo" />
         </div>
     </div>
@@ -29,7 +29,6 @@ if (store.state.myTodosSorting && store.state.myTodosFilter) {
 } else {
     todos.value = await getRequest("todos", store.state.token);
 }
-
 async function filter(filterValue) {
     todos.value = null;
     if (store.state.myTodosSorting) {
@@ -56,5 +55,14 @@ async function deleteTodo(todoId) {
 async function completeTodo(todoId) {
     await patchRequestUrlValue("todos", store.state.token, todoId, { isCompleted: true });
     location.reload();
+}
+function logOut() {
+  store
+    .dispatch("logOut")
+    .then(() => {
+      router.push({
+        name: "Login",
+      });
+    });
 }
 </script>

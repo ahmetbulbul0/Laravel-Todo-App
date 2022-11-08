@@ -49,6 +49,7 @@ class TodoController extends Controller
         if (!$request->user()->currentAccessToken()->can("all-todos-list")) {
             $data = $data->where("user", $request->user()->id);
         }
+        $data = $data->limit(10);
         $data = $data->get();
         return new TodoCollection($data);
     }

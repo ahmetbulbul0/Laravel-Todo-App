@@ -6,33 +6,30 @@ import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
     state: {
-        token: localStorage.token,
-        username: localStorage.username,
-        fullName: localStorage.fullName,
-
+        token: "",
+        username: "",
+        fullName: "",
         loginError: "",
-
         fullNameError: "",
         usernameError: "",
         passwordError: "",
         emailError: "",
-
         myTodosSorting: "",
         myTodosFilter: ""
     },
     getters: {},
     mutations: {
         setToken(state, token) {
-            localStorage.setItem("token", token);
+            state.token = token;
         },
         setUser(state, user) {
-            localStorage.setItem("username", user.username);
-            localStorage.setItem("fullName", user.full_name);
+            state.username = user.username;
+            state.fullName = user.full_name;
         },
         logOutData(state) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.removeItem("fullName");
+            state.token = "";
+            state.username = "";
+            state.fullName = "";
         },
         loginError(state) {
             state.loginError = "Login Failed";
@@ -65,27 +62,14 @@ export default createStore({
         }
     },
     actions: {
-        async login(state, fData) {
-            const data = {
-                email: fData.email,
-                password: fData.password,
-            };
-            await axios
-                .post("http://localhost:8000/api/login", {
-                    email: data.email,
-                    password: data.password,
-                })
-                .then(function (res) {
-                    if (
-                        res.data.user &&
-                        res.data.token &&
-                        res.data.status == "ok"
-                    ) {
-                        var user = res.data.user;
-                        var token = res.data.token;
+        async login(state, data) {
+            await axios.post("http://localhost:8000/api/login", data)
+                .then(function (response) {
+                    if (response.data.user && response.data.token && response.data.status == "ok") {
+                        var user = response.data.user;
+                        var token = response.data.token;
                         state.commit("setToken", token);
                         state.commit("setUser", user);
-                        router.push({ name: "MyTodos" });
                     } else {
                         state.commit("loginError");
                     }
@@ -121,7 +105,6 @@ export default createStore({
         },
         logOut(state) {
             state.commit("logOutData");
-            router.push({ name: "Login" });
         },
     },
     modules: {},

@@ -14,7 +14,7 @@
         </div>
         <div class="links">
             <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
-            <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
+            <a class="bg-redPink link" @click="$emit('logOut')">Log Out</a>
         </div>
     </div>
     <div class="header">
