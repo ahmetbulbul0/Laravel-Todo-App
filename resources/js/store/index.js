@@ -30,6 +30,8 @@ export default createStore({
             state.token = "";
             state.username = "";
             state.fullName = "";
+            state.myTodosSorting = "";
+            state.myTodosFilter = "";
         },
         loginError(state) {
             state.loginError = "Login Failed";
@@ -75,17 +77,8 @@ export default createStore({
                     }
                 });
         },
-        async register(state, fData) {
+        async register(state, data) {
             state.commit("resetRegisterErrors");
-
-            const data = {
-                fullName: fData.fullName,
-                username: fData.username,
-                password: fData.password,
-                email: fData.email,
-                type: "user",
-            };
-
             await axios
                 .post("http://localhost:8000/api/register", data)
                 .catch(function (error) {

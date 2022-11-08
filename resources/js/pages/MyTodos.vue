@@ -10,9 +10,9 @@
 <script setup>
 import router from "../router";
 import { getRequest, deleteRequestUrlValue, patchRequestUrlValue, getRequestQuery } from "../api";
-import { useStore } from 'vuex';
 import axios from "axios";
 import { ref } from "@vue/reactivity";
+import { useStore } from 'vuex';
 import { defineAsyncComponent, onMounted, watch } from "@vue/runtime-core";
 const TodoList = defineAsyncComponent((todos) => import("../components/TodoList.vue"));
 const MyTodosHeader = defineAsyncComponent((todos) => import("../components/MyTodosHeader.vue"));
