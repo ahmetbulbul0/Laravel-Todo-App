@@ -49,9 +49,54 @@ class TodoController extends Controller
         if (!$request->user()->currentAccessToken()->can("all-todos-list")) {
             $data = $data->where("user", $request->user()->id);
         }
-        $data = $data->limit(10);
+        if ($request->search) {
+            $search = htmlspecialchars($request->search);
+            $data = $data->where("content", "like", "%".$search."%");
+        }
+        $page = intval($request->page) ? intval($request->page) : 1;
+        $data = TodoController::paginate($data, $page, 10);
+        $response = [
+            "data" => new TodoCollection($data["data"]),
+            "paginate" => $data["pagination"]
+        ];
+        return $response;
+    }
+
+    static function paginate($data, $page, $itemPerPage) {
+        $dataNumber = count($data->get());
+
+        $TotalPageNumber = TodoController::getTotalPageNumber($dataNumber, $itemPerPage);
+
+        $offsetValue = ($page * $itemPerPage) - $itemPerPage;
+
+        $data = $data->limit($itemPerPage);
+        $data = $data->offset($offsetValue);
         $data = $data->get();
-        return new TodoCollection($data);
+
+        $response["data"] = $data;
+
+        $response["pagination"] = [
+            "nowPage" => $page,
+            "previousPage" => $page > 1 ? $page - 1 : null,
+            "previousPreviousPage" => $page > 2 ? $page - 2 : null,
+            "nextPage" => $page < $TotalPageNumber ? $page + 1 : null,
+            "nextNextPage" => $page + 1 < $TotalPageNumber ? $page + 2 : null,
+            "totalPageNumber" => $TotalPageNumber,
+        ];
+
+        return $response;
+    }
+
+    static function getTotalPageNumber($dataNumber, $itemPerPage)
+    {
+        $totalPageNumber = 1;
+        if ($dataNumber > $itemPerPage) {
+            $totalPageNumber = intval($dataNumber / $itemPerPage);
+            if (($dataNumber % $itemPerPage) > 0) {
+                $totalPageNumber++;
+            }
+        }
+        return $totalPageNumber;
     }
 
     /**

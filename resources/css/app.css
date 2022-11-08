@@ -5,6 +5,7 @@
     --red-pink: #e53265;
     --gray: #c1d0dd;
     --gray1: #75747a;
+    --gray2: rgba(70, 70, 70, 0.267);
     --dark-red: #f22121a2;
     --red: #f22121;
     --dark-green: #3e794fa2;
@@ -236,7 +237,46 @@ textarea {
 .text {
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 480px;
 }
+.text input[type="text"] {
+    border-radius: 6px 0 0 6px;
+    border-right: 0;
+}
+.text .searchBtn {
+    border: 1px solid var(--soft-blue);
+    border-left: 0;
+    border-radius: 0 6px 6px 0;
+    box-sizing: border-box;
+    padding: 8px 16px 8px 0;
+    background-color: var(--dark-blue);
+}
 .lineThrough {text-decoration: line-through 2px;}
+.paginateContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paginateContainer .paginate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--gray2);
+    padding: 12px 24px;
+    border-radius: 4px;
+    gap: 0 12px;
+}
+.paginateContainer .paginate a {
+    padding: 6px 16px;
+    border-radius: 6px;
+}
+.paginateContainer .paginate a:hover {
+    background-color: var(--gray2);
+}
+.paginateContainer .paginate a.current {
+    background-color: var(--gray2);
+}
+.paginateContainer .paginate a.icon {
+    padding: 12px 16px;
+}

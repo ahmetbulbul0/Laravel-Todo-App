@@ -11,10 +11,24 @@
             <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-darkGreen hoverGreen icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
         </div>
     </div>
+    <div class="paginateContainer mt12">
+        <div class="paginate">
+            <a v-if="paginate.previousPage" @click="$emit('changePage', paginate.previousPage)" class="icon"><i class="fa-solid fa-arrow-left"></i></a>
+            <a v-if="paginate.previousPreviousPage" @click="$emit('changePage', paginate.previousPreviousPage)">{{ paginate.previousPreviousPage }}</a>
+            <a v-if="paginate.previousPage" @click="$emit('changePage', paginate.previousPage)">{{ paginate.previousPage }}</a>
+            <a class="current">{{ paginate.nowPage }}</a>
+            <a v-if="paginate.nextPage" @click="$emit('changePage', paginate.nextPage)">{{ paginate.nextPage }}</a>
+            <a v-if="paginate.nextNextPage" @click="$emit('changePage', paginate.nextNextPage)">{{ paginate.nextNextPage }}</a>
+            <a v-if="paginate.nextPage" @click="$emit('changePage', paginate.nextPage)" class="icon"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
 </div>
 </template>
 
 <script setup>
 const props = defineProps(["data"]);
+
 const todos = props.data.data.data;
+
+const paginate = props.data.data.paginate;
 </script>

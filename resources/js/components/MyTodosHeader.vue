@@ -33,7 +33,10 @@
             </label>
         </div>
         <div class="text">
-            <input type="text" placeholder="Searh in my todos...">
+            <input type="text" placeholder="Searh in my todos..." v-model="search"  @keyup.enter="$emit('search', search)">
+            <a class="searchBtn" @click="$emit('search', search)">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
         </div>
     </div>
 </template>
@@ -44,6 +47,8 @@ import { watch } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 const store = useStore();
 var sortingValue = ref("");
+const search = ref("");
+
 if (store.state.myTodosSorting) {
     sortingValue.value = store.state.myTodosSorting
 }

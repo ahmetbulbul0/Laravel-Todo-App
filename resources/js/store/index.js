@@ -15,7 +15,8 @@ export default createStore({
         passwordError: "",
         emailError: "",
         myTodosSorting: "",
-        myTodosFilter: ""
+        myTodosFilter: "",
+        myTodosPage: ""
     },
     getters: {},
     mutations: {
@@ -61,6 +62,9 @@ export default createStore({
         },
         setMyTodosFilter(state, filter) {
             state.myTodosFilter = filter
+        },
+        setPage(state, page) {
+            state.myTodosPage = page
         }
     },
     actions: {

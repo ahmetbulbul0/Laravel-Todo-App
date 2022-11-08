@@ -30,11 +30,11 @@ const router = createRouter({
         },
         {
             name: "MyTodos",
-            path: "/my-todos/:sorting?",
+            path: "/my-todos/:page?",
             component: () => import("../pages/MyTodos.vue"),
             meta: {
                 requiresAuth: true
-            }
+            },
         },
         {
             name: "NewTodo",
