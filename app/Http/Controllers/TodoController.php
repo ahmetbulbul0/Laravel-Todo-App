@@ -19,17 +19,15 @@ class TodoController extends Controller
     public function index(Request $request)
     {
         $data = new Todo();
-        if ($request->isCompleted) {
-            switch ($request->isCompleted) {
-                case 'yes':
-                    $data = $data->where("is_completed", true);
-                    break;
-                case 'no':
-                    $data = $data->where("is_completed", false);
-                    break;
-                default:
-                    break;
-            }
+        switch ($request->isCompleted) {
+            case 'yes':
+                $data = $data->where("is_completed", true);
+                break;
+            case 'no':
+                $data = $data->where("is_completed", false);
+                break;
+            default:
+                break;
         }
         switch ($request->sorting) {
             case 'isCompleted09':
@@ -39,10 +37,10 @@ class TodoController extends Controller
                 $data = $data->orderBy("is_completed", "DESC");
                 break;
             case 'addedTime09':
-                $data = $data->orderBy("is_completed", "ASC");
+                $data = $data->orderBy("added_time", "ASC");
                 break;
             case 'addedTime90':
-                $data = $data->orderBy("is_completed", "DESC");
+                $data = $data->orderBy("added_time", "DESC");
                 break;
             default:
                 $data = $data->orderBy("added_time", "DESC");

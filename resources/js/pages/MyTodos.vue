@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="md-box">
-            <MyTodosHeader  @sorting="sorting" />
+            <MyTodosHeader  @sorting="sorting" @filter="filter" />
             <TodoList v-if="todos" :data="todos" @deleteTodo="deleteTodo" @completeTodo="completeTodo" />
         </div>
     </div>
@@ -20,18 +20,35 @@ const store = useStore();
 
 var todos = ref("");
 
-if (store.state.myTodosSorting) {
+if (store.state.myTodosSorting && store.state.myTodosFilter) {
+    todos.value = await getRequestQuery("todos", store.state.token, { sorting: store.state.myTodosSorting, isCompleted: store.state.myTodosFilter });
+} else if (store.state.myTodosSorting) {
     todos.value = await getRequestQuery("todos", store.state.token, { sorting: store.state.myTodosSorting });
+} else if (store.state.myTodosFilter) {
+    todos.value = await getRequestQuery("todos", store.state.token, { isCompleted: store.state.myTodosFilter });
 } else {
     todos.value = await getRequest("todos", store.state.token);
 }
 
+async function filter(filterValue) {
+    todos.value = null;
+    if (store.state.myTodosSorting) {
+        todos.value = await getRequestQuery("todos", store.state.token, { sorting: store.state.myTodosSorting, isCompleted: filterValue });
+    } else {
+        todos.value = await getRequestQuery("todos", store.state.token, { isCompleted: filterValue });
+    }
+    store.commit("setMyTodosFilter", filterValue);
+
+}
 async function sorting(sortingValue) {
     todos.value = null;
-    todos.value = await getRequestQuery("todos", store.state.token, { sorting: sortingValue });
+    if (store.state.myTodosFilter) {
+        todos.value = await getRequestQuery("todos", store.state.token, { sorting: sortingValue, isCompleted: store.state.myTodosFilter });
+    } else {
+        todos.value = await getRequestQuery("todos", store.state.token, { sorting: sortingValue });
+    }
     store.commit("setMyTodosSorting", sortingValue);
 }
-
 async function deleteTodo(todoId) {
     await deleteRequestUrlValue("todos", store.state.token, todoId);
     location.reload();

@@ -20,11 +20,15 @@
     <div class="header">
         <div class="radios left">
             <label>
-                <input type="radio" name="filter">
+                <input type="radio" v-model="filter" value="">
+                All
+            </label>
+            <label>
+                <input type="radio" v-model="filter" value="yes">
                 Completed Todo's
             </label>
             <label>
-                <input type="radio" name="filter">
+                <input type="radio" v-model="filter" value="no">
                 Incomplete Todo's
             </label>
         </div>
@@ -36,10 +40,19 @@
 
 <script setup>
 import { ref } from '@vue/reactivity';
+import { watch } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 const store = useStore();
 var sortingValue = ref("");
 if (store.state.myTodosSorting) {
     sortingValue.value = store.state.myTodosSorting
 }
+const emits = defineEmits(["filter"]);
+const filter = ref("");
+if (store.state.myTodosFilter) {
+    filter.value = store.state.myTodosFilter;
+}
+watch(filter, (newFilter, oldFilter) => {
+    emits("filter", filter.value);
+})
 </script>
