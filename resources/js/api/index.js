@@ -22,6 +22,16 @@ async function getRequestUrlValue(url, token, value) {
     return get;
 }
 
+async function getRequestQuery(url, token, query) {
+    const get = await instance.get(url, {
+        params: query,
+        headers: { Authorization: "Bearer " + token }
+    }).catch(function (errors) {
+        return errors;
+    });
+    return get;
+}
+
 async function postRequest(url, token, data) {
     const post = await instance.post(
         url,
@@ -50,4 +60,4 @@ async function patchRequestUrlValue(url, token, value, data) {
     return post;
 }
 
-export { getRequest, postRequest, getRequestUrlValue, patchRequestUrlValue, deleteRequestUrlValue };
+export { getRequest, postRequest, getRequestUrlValue, patchRequestUrlValue, deleteRequestUrlValue, getRequestQuery };

@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import router from "../router";
 import { getRequest } from "../api";
 import axios from "axios";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
     state: {
@@ -15,6 +16,8 @@ export default createStore({
         usernameError: "",
         passwordError: "",
         emailError: "",
+
+        myTodosSorting: "",
     },
     getters: {},
     mutations: {
@@ -53,6 +56,9 @@ export default createStore({
             state.passwordError = null;
             state.emailError = null;
         },
+        setMyTodosSorting(state, sorting) {
+            state.myTodosSorting = sorting
+        }
     },
     actions: {
         async login(state, fData) {
@@ -115,4 +121,5 @@ export default createStore({
         },
     },
     modules: {},
+    plugins: [createPersistedState()],
 });

@@ -1,71 +1,41 @@
 <template>
     <div class="container">
         <div class="md-box">
-            <div class="header">
-                <div class="title size140">
-                    <span>My Todo's</span>
-                </div>
-                <div class="select">
-                    <select>
-                        <option selected disabled>Sorting</option>
-                        <option>First Incomplete Todo's</option>
-                        <option>First Completed Todo's</option>
-                        <option>First Newest</option>
-                        <option>First Oldest</option>
-                    </select>
-                </div>
-                <div class="links">
-                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
-                    <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
-                </div>
-            </div>
-            <div class="header">
-                <div class="radios left">
-                    <label>
-                        <input type="radio" name="filter">
-                        Completed Todo's
-                    </label>
-                    <label>
-                        <input type="radio" name="filter">
-                        Incomplete Todo's
-                    </label>
-                </div>
-                <div class="text">
-                    <input type="text" placeholder="Searh in my todos...">
-                </div>
-            </div>
-            <div class="list" v-if="todos && todos.data.data.length > 0">
-                <div class="item column3 between" :class="{ 'bg-softGreen': todo.isCompleted }" v-for="todo in todos.data.data" :key="todo.id">
-                    <div class="links">
-                        <a @click="completeTodo(todo.id)" class="hoverGreen1 icon" :class="{ 'bg-darkGreen1': !todo.isCompleted, 'bg-green1': todo.isCompleted }"><i class="fa-regular fa-circle-check"></i></a>
-                        <router-link :to="{ name: 'TodoDetail', params: { todoId: todo.id } }" :class="{ lineThrough: todo.isCompleted }">{{ todo.content }}</router-link>
-                    </div>
-                    <div class="links">
-                        <router-link :to="{ name: 'TodoDetail', params: { todoId: todo.id } }" class="bg-darkPink hoverPink icon"><i class="fa-solid fa-up-right-from-square"></i></router-link>
-                        <a @click="deleteTodo(todo.id)" class="bg-darkRed hoverRed icon"><i class="fa-solid fa-trash"></i></a>
-                        <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-darkGreen hoverGreen icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
-                    </div>
-                </div>
-
-            </div>
+            <MyTodosHeader  @sorting="sorting" />
+            <TodoList v-if="todos" :data="todos" @deleteTodo="deleteTodo" @completeTodo="completeTodo" />
         </div>
     </div>
 </template>
 
 <script setup>
 import router from "../router";
-import { getRequest, deleteRequestUrlValue, patchRequestUrlValue } from "../api";
+import { getRequest, deleteRequestUrlValue, patchRequestUrlValue, getRequestQuery } from "../api";
 import { useStore } from 'vuex';
 import axios from "axios";
+import { ref } from "@vue/reactivity";
+import { defineAsyncComponent, onMounted, watch } from "@vue/runtime-core";
+const TodoList = defineAsyncComponent((todos) => import("../components/TodoList.vue"));
+const MyTodosHeader = defineAsyncComponent((todos) => import("../components/MyTodosHeader.vue"));
 const store = useStore();
 
-const todos = await getRequest("todos", store.state.token);
+var todos = ref("");
+
+if (store.state.myTodosSorting) {
+    todos.value = await getRequestQuery("todos", store.state.token, { sorting: store.state.myTodosSorting });
+} else {
+    todos.value = await getRequest("todos", store.state.token);
+}
+
+async function sorting(sortingValue) {
+    todos.value = null;
+    todos.value = await getRequestQuery("todos", store.state.token, { sorting: sortingValue });
+    store.commit("setMyTodosSorting", sortingValue);
+}
 
 async function deleteTodo(todoId) {
     await deleteRequestUrlValue("todos", store.state.token, todoId);
     location.reload();
 }
-
 async function completeTodo(todoId) {
     await patchRequestUrlValue("todos", store.state.token, todoId, { isCompleted: true });
     location.reload();

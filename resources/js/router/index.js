@@ -20,7 +20,7 @@ const router = createRouter({
         },
         {
             name: "MyTodos",
-            path: "/my-todos",
+            path: "/my-todos/:sorting?",
             component: () => import("../pages/MyTodos.vue"),
         },
         {
