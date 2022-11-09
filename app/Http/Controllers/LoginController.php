@@ -23,7 +23,7 @@ class LoginController extends Controller
 
             switch ($user->type) {
                 case 'admin':
-                    $token = $user->createToken('token', ["all-todos-list", "all-todos-delete", "all-todos-update"]);
+                    $token = $user->createToken('token', ["all-todos-list", "all-todos-delete", "all-todos-update", "todo-create"]);
                     break;
                 case 'user':
                     $token = $user->createToken('token', ["todo-create"]);

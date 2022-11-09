@@ -80,7 +80,7 @@ const usernameError = ref("");
 const passwordError = ref("");
 const emailError = ref("");
 
-function register(ev) {
+async function register(ev) {
     ev.preventDefault();
     const data = {
         fullName: fullName.value,
@@ -89,12 +89,13 @@ function register(ev) {
         email: email.value,
         type: "user",
     };
-    store.dispatch("register", data).then(() => {
-        if (store.state.userType == "admin") {
-            router.push({ name: "AllTodos" });
-        } else {
-            router.push({ name: "MyTodos" });
-        }
-    });
+    store.dispatch("register", data);
+    setTimeout(() => goDashbord(), 500);}
+function goDashbord() {
+    if (store.state.userType == "user") {
+        router.push({ name: "MyTodos" });
+    } else if (store.state.userType == "admin") {
+        router.push({ name: "AllTodos" });
+    }
 }
 </script>
