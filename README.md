@@ -54,6 +54,12 @@ php artisan migrate
 php artisan db:seed
 ```
 
+### Run Admin Seeder (for admin user)
+
+```sh
+php artisan db:seed --class=AdminSeeder
+```
+
 ### Run project (BackEnd)
 
 ```sh
@@ -70,6 +76,12 @@ npm install
 
 ```sh
 npm run dev
+```
+
+### Open Link
+
+```sh
+http://localhost:8000/
 ```
 
 ## **Api Documentation**
@@ -98,11 +110,11 @@ npm run dev
 
 ## **Pages**
 
--   _Welcome_ (path: '/') - *(only guests)*
--   _Register_ (path: '/register') - *(only guests)*
--   _Login_ (path: '/login') - *(only users)*
--   _MyTodos_ (path: '/my-todos') - *(only users)*
--   _AllTodos_ (path: '/all-todos') - *(only admins)*
--   _NewTodo_ (path: '/new-todo') - *(only users)*
--   _TodoDetail_ (path: '/todo-detail/{:todoId}') - *(only users)*
--   _TodoEdit_ (path: '/todo-edit/{:todoId}') - *(only users)*
+-   _Welcome_ (path: '/') - _(only guests)_
+-   _Register_ (path: '/register') - _(only guests)_
+-   _Login_ (path: '/login') - _(only users)_
+-   _MyTodos_ (path: '/my-todos') - _(only users)_
+-   _AllTodos_ (path: '/all-todos') - _(only admins)_
+-   _NewTodo_ (path: '/new-todo') - _(only users)_
+-   _TodoDetail_ (path: '/todo-detail/{:todoId}') - _(only users)_
+-   _TodoEdit_ (path: '/todo-edit/{:todoId}') - _(only users)_

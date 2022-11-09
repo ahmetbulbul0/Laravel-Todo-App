@@ -39,16 +39,5 @@ class UserSeeder extends Seeder
             ->count(10)
             ->hasTodo(4)
             ->create();
-
-            User::factory()
-            ->count(1)
-            ->state([
-                'full_name' => 'todo admin',
-                'username' => 'admintodo',
-                'password' => Hash::make('admin1todo'),
-                'email' => 'admin@todo.com',
-                'type' => 'admin',
-                ])
-            ->create();
     }
 }
