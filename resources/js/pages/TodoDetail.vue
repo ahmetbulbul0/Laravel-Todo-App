@@ -6,17 +6,37 @@
                     <span>Todo Detail</span>
                 </div>
                 <div class="links">
-                    <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-green link link-icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
-                    <a @click="deleteTodo(todo.id)" class="bg-red link link-icon"><i class="fa-solid fa-trash"></i></a>
-                    <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
-                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
-                    <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
+                    <router-link
+                        :to="{ name: 'TodoEdit', params: { todoId: todo.id } }"
+                        class="bg-green link link-icon"
+                        ><i class="fa-solid fa-pen-to-square"></i
+                    ></router-link>
+                    <a
+                        @click="deleteTodo(todo.id)"
+                        class="bg-red link link-icon"
+                        ><i class="fa-solid fa-trash"></i
+                    ></a>
+                    <router-link
+                        :to="{ name: 'MyTodos' }"
+                        class="bg-redPink link"
+                        >My Todo's</router-link
+                    >
+                    <router-link
+                        :to="{ name: 'NewTodo' }"
+                        class="bg-redPink link"
+                        >New Todo</router-link
+                    >
+                    <a class="bg-redPink link" @click="store.dispatch('logOut')"
+                        >Log Out</a
+                    >
                 </div>
             </div>
             <div class="list">
                 <div class="item block">
                     <label>Content:</label>
-                    <textarea class="mt12 h140" v-model="todo.content" readonly>{ todo.content }</textarea>
+                    <textarea class="mt12 h140" v-model="todo.content" readonly>
+{ todo.content }</textarea
+                    >
                 </div>
                 <div class="item block">
                     <label>Added Time:</label>
@@ -27,7 +47,12 @@
                 </div>
                 <div class="item block">
                     <label>Is Completed:</label>
-                    <input type="text" v-model="isCompleted" class="mt12" readonly />
+                    <input
+                        type="text"
+                        v-model="isCompleted"
+                        class="mt12"
+                        readonly
+                    />
                 </div>
                 <div class="item block">
                     <label>User:</label>
@@ -42,7 +67,11 @@
 import router from "../router";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { getRequestUrlValue, deleteRequestUrlValue, patchRequestUrlValue } from "../api";
+import {
+    getRequestUrlValue,
+    deleteRequestUrlValue,
+    patchRequestUrlValue,
+} from "../api";
 const route = useRoute();
 const store = useStore();
 
@@ -51,7 +80,11 @@ const todoId = route.params.todoId;
 var todo = await getRequestUrlValue("todos", store.state.token, todoId);
 
 if (todo.response && todo.response.status == 404) {
-    router.push({ name: "MyTodos" });
+    if (store.state.userType == "admin") {
+        router.push({ name: "AllTodos" });
+    } else {
+        router.push({ name: "MyTodos" });
+    }
 }
 
 todo = todo.data.data;
@@ -71,9 +104,10 @@ async function deleteTodo(todoId) {
 }
 
 async function completeTodo(todoId) {
-    await patchRequestUrlValue("todos", store.state.token, todoId, { isCompleted: true });
+    await patchRequestUrlValue("todos", store.state.token, todoId, {
+        isCompleted: true,
+    });
     router.push({ name: "MyTodos" });
     location.reload();
 }
-
 </script>

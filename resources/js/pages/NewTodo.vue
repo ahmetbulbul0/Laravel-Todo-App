@@ -6,8 +6,14 @@
                     <span>New Todo</span>
                 </div>
                 <div class="links">
-                    <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
-                    <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
+                    <router-link
+                        :to="{ name: 'MyTodos' }"
+                        class="bg-redPink link"
+                        >My Todo's</router-link
+                    >
+                    <a class="bg-redPink link" @click="store.dispatch('logOut')"
+                        >Log Out</a
+                    >
                 </div>
             </div>
             <form class="form mt12" @submit.prevent="newTodo">
@@ -37,12 +43,13 @@ const store = useStore();
 const content = ref("");
 
 async function newTodo() {
-    const todo = await postRequest(
-        "todos",
-        store.state.token,
-        { content: content.value }
-    );
-    router.push({ name: "MyTodos" });
+    const todo = await postRequest("todos", store.state.token, {
+        content: content.value,
+    });
+    if (store.state.userType == "admin") {
+        router.push({ name: "AllTodos" });
+    } else {
+        router.push({ name: "MyTodos" });
+    }
 }
-
 </script>
