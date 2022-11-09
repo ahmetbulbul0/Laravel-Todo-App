@@ -13,6 +13,7 @@
 
 ## Dependencies
 
+-   Sanctum
 -   Vue-Router
 -   Axios
 -   Vite
