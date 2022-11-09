@@ -9,6 +9,7 @@ export default createStore({
         token: "",
         username: "",
         fullName: "",
+        userType: "",
         loginError: "",
         fullNameError: "",
         usernameError: "",
@@ -26,11 +27,13 @@ export default createStore({
         setUser(state, user) {
             state.username = user.username;
             state.fullName = user.full_name;
+            state.userType = user.type;
         },
         logOutData(state) {
             state.token = "";
             state.username = "";
             state.fullName = "";
+            state.userType = "";
             state.myTodosSorting = "";
             state.myTodosFilter = "";
         },

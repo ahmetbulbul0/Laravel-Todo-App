@@ -97,10 +97,11 @@ npm run dev
 
 ## **Pages**
 
--   _Welcome_ (path: '/')
--   _Register_ (path: '/register')
--   _Login_ (path: '/login')
--   _MyTodos_ (path: '/my-todos')
--   _NewTodo_ (path: '/new-todo')
--   _TodoDetail_ (path: '/todo-detail/{:todoId}')
--   _TodoEdit_ (path: '/todo-edit/{:todoId}')
+-   _Welcome_ (path: '/') - *(only guests)*
+-   _Register_ (path: '/register') - *(only guests)*
+-   _Login_ (path: '/login') - *(only users)*
+-   _MyTodos_ (path: '/my-todos') - *(only users)*
+-   _AllTodos_ (path: '/all-todos') - *(only admins)*
+-   _NewTodo_ (path: '/new-todo') - *(only users)*
+-   _TodoDetail_ (path: '/todo-detail/{:todoId}') - *(only users)*
+-   _TodoEdit_ (path: '/todo-edit/{:todoId}') - *(only users)*

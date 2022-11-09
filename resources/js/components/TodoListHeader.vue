@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="title size140">
-            <span>My Todo's</span>
+            <span>{{ title }}</span>
         </div>
         <div class="select">
             <select v-model="sortingValue" @change="$emit('sorting', sortingValue)">
@@ -33,7 +33,7 @@
             </label>
         </div>
         <div class="text">
-            <input type="text" placeholder="Searh in my todos..." v-model="search"  @keyup.enter="$emit('search', search)">
+            <input type="text" placeholder="Search in todos..." v-model="search"  @keyup.enter="$emit('search', search)">
             <a class="searchBtn" @click="$emit('search', search)">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </a>
@@ -48,10 +48,11 @@ import { useStore } from 'vuex';
 const store = useStore();
 var sortingValue = ref("");
 const search = ref("");
-
 if (store.state.myTodosSorting) {
     sortingValue.value = store.state.myTodosSorting
 }
+const props = defineProps(["title"]);
+const title = props.title;
 const emits = defineEmits(["filter"]);
 const filter = ref("");
 if (store.state.myTodosFilter) {

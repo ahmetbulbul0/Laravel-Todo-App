@@ -20,6 +20,7 @@ Route::get('/', function () {return view('app');})->name("Welcome");
 Route::get('/register', function () {return view('app');})->name("Register");
 Route::get('/login', function () {return view('app');})->name("login");
 Route::get('/my-todos/{page?}', function () {return view('app');})->name("MyTodos");
+Route::get('/all-todos/{page?}', function () {return view('app');})->name("AllTodos");
 Route::get('/new-todo', function () {return view('app');})->name("NewTodo");
 Route::get('/todo-detail/{todoId}', function () {return view('app');})->name("TodoDetail");
 Route::get('/is-complete/{todoId}', function () {return view('app');})->name("IsComplete");
