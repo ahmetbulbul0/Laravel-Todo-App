@@ -72,6 +72,12 @@ npm install
 npm run dev
 ```
 
+### Open Link
+
+```sh
+http://localhost:8000/
+```
+
 ## **Api Documentation**
 
 ### **_Users_**
