@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 :root {
     --dark-blue: #1a1926;
     --soft-blue: #303449;
@@ -16,45 +16,86 @@
     --dark-pink: #b465b8a2;
     --soft-green: #3e794f50;
 }
-.bg-redPink {background-color: var(--red-pink);}
-.bg-darkRed {background-color: var(--dark-red);}
-.bg-red {background-color: var(--red);}
-.bg-darkGreen {background-color: var(--dark-green);}
-.bg-green {background-color: var(--green);}
-.bg-darkGreen1 {background-color: var(--dark-green1);}
-.bg-green1 {background-color: var(--green1);}
-.bg-darkPink {background-color: var(--dark-pink);}
-.bg-pink {background-color: var(--pink);}
-.hoverGreen:hover {transition: .2s; background-color: var(--green);}
-.hoverGreen1:hover {transition: .2s; background-color: var(--green1);}
-.hoverRed:hover {transition: .2s; background-color: var(--red);}
-.hoverPink:hover {transition: .2s; background-color: var(--pink);}
-.bg-softGreen {background-color: var(--soft-green) !important;}
+.bg-redPink {
+    background-color: var(--red-pink);
+}
+.bg-darkRed {
+    background-color: var(--dark-red);
+}
+.bg-red {
+    background-color: var(--red);
+}
+.bg-darkGreen {
+    background-color: var(--dark-green);
+}
+.bg-green {
+    background-color: var(--green);
+}
+.bg-darkGreen1 {
+    background-color: var(--dark-green1);
+}
+.bg-green1 {
+    background-color: var(--green1);
+}
+.bg-darkPink {
+    background-color: var(--dark-pink);
+}
+.bg-pink {
+    background-color: var(--pink);
+}
+.hoverGreen:hover {
+    transition: 0.2s;
+    background-color: var(--green);
+}
+.hoverGreen1:hover {
+    transition: 0.2s;
+    background-color: var(--green1);
+}
+.hoverRed:hover {
+    transition: 0.2s;
+    background-color: var(--red);
+}
+.hoverPink:hover {
+    transition: 0.2s;
+    background-color: var(--pink);
+}
+.bg-softGreen {
+    background-color: var(--soft-green) !important;
+}
 body {
     margin: 0;
     padding: 0;
     background-color: #16141c;
 }
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     color: white;
     cursor: default;
 }
-a, button {
+a,
+button {
     all: unset;
     cursor: pointer;
 }
-i {cursor: inherit;}
-/* a:hover {
-    text-decoration: underline;
-} */
-input, select, textarea, option {
+i {
+    cursor: inherit;
+}
+input,
+select,
+textarea,
+option {
     background: none;
     outline: none;
     border: none;
     font-size: 90%;
 }
-input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="time"], textarea, select {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
     width: 100%;
     border: 1px solid var(--soft-blue);
     border-radius: 6px;
@@ -84,18 +125,19 @@ textarea {
     box-sizing: border-box;
     padding: 50px;
 }
-.sm-box, .md-box {
+.sm-box,
+.md-box {
     background-color: var(--dark-blue);
     border-radius: 25px;
     box-sizing: border-box;
-    width: 520px;
+    width: 100%;
     padding: 30px;
 }
 .sm-box {
-    width: 520px;
+    max-width: 520px;
 }
 .md-box {
-    width: 1280px;
+    max-width: 1280px;
 }
 .title {
     font-weight: 900;
@@ -103,11 +145,9 @@ textarea {
 }
 .title.size120 {
     font-size: 120%;
-
 }
 .title.size140 {
     font-size: 140%;
-
 }
 .list {
     width: 100%;
@@ -125,8 +165,12 @@ textarea {
 .list .item:not(.column3):not(:nth-child(1)) {
     margin-top: 24px;
 }
-.list .item.center {justify-content: center;}
-.list .item.between {justify-content: space-between;}
+.list .item.center {
+    justify-content: center;
+}
+.list .item.between {
+    justify-content: space-between;
+}
 .list .item.column3 {
     box-sizing: border-box;
     padding: 16px 32px;
@@ -144,9 +188,15 @@ textarea {
     width: 100%;
     text-align: center;
 }
-.mt6 {margin-top: 6px;}
-.mt12 {margin-top: 12px;}
-.h140 {height: 140px;}
+.mt6 {
+    margin-top: 6px;
+}
+.mt12 {
+    margin-top: 12px;
+}
+.h140 {
+    height: 140px;
+}
 .subText {
     width: 100%;
     text-align: center;
@@ -205,6 +255,7 @@ textarea {
 .link {
     font-size: 90%;
     border-radius: 6px;
+    box-sizing: border-box;
     padding: 8px 16px;
 }
 .icon {
@@ -212,6 +263,7 @@ textarea {
     justify-content: center;
     align-items: center;
     font-size: 90%;
+    box-sizing: border-box;
     padding: 12px;
     border-radius: 6px;
     font-size: 16px;
@@ -220,9 +272,14 @@ textarea {
     display: flex;
     align-items: center;
     gap: 0 24px;
+    margin-top: 12px;
 }
-.radios.left {justify-content: left;}
-.radios.around {justify-content: space-around;}
+.radios.left {
+    justify-content: left;
+}
+.radios.around {
+    justify-content: space-around;
+}
 .radios label {
     font-size: 90%;
     display: flex;
@@ -251,7 +308,9 @@ textarea {
     padding: 8px 16px 8px 0;
     background-color: var(--dark-blue);
 }
-.lineThrough {text-decoration: line-through 2px;}
+.lineThrough {
+    text-decoration: line-through 2px;
+}
 .paginateContainer {
     width: 100%;
     display: flex;
@@ -280,5 +339,148 @@ textarea {
 .paginateContainer .paginate a.icon {
     padding: 12px 16px;
 }
-
-
+@media only screen and (max-width: 450px) {
+    .container {
+        padding: 50px 25px;
+    }
+    .sm-box,
+    .md-box {
+        padding: 30px 15px;
+    }
+}
+@media only screen and (max-width: 1140px) {
+    .header .text {
+        width: 380px;
+    }
+}
+@media only screen and (max-width: 1040px) {
+    .header .text {
+        width: 280px;
+    }
+}
+@media only screen and (max-width: 940px) {
+    .header {
+        display: block;
+    }
+    .header .title {
+        text-align: left;
+    }
+    .header .select {
+        margin-top: 24px;
+        width: 100%;
+    }
+    .header .links {
+        margin-top: 24px;
+        width: 100%;
+    }
+    .header .links .link:not(.link-icon) {
+        width: 50%;
+    }
+    .header .radios {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .header .text {
+        margin-top: 24px;
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 840px) {
+    .list .item {
+        display: block;
+    }
+    .list .item .links {
+        justify-content: space-between;
+    }
+    .list .item .fullBtn {
+        display: block;
+    }
+    .list .item .links:not(:nth-child(1)) .icon {
+        width: 25%;
+    }
+    .list .item .links:not(:nth-child(1)) {
+        margin-top: 16px;
+    }
+    .dateTime input[type="date"] {
+        border-bottom: 0;
+        border-radius: 6px 6px 0 0;
+    }
+    .dateTime input[type="time"] {
+        border-radius: 0 0 6px 6px;
+    }
+}
+@media only screen and (max-width: 640px) {
+    .header .radios {
+        display: block;
+    }
+    .header .radios label {
+        display: block;
+    }
+    .header .radios label:not(:nth-child(1)) {
+        margin-top: 12px;
+    }
+}
+@media only screen and (max-width: 740px) {
+    .header .links {
+        display: block;
+    }
+    .header .links .link {
+        display: block;
+        width: 100%;
+    }
+    .header .links .link:not(.link-icon) {
+        width: 100%;
+    }
+    .header .links .link:not(:nth-child(1)) {
+        margin-top: 24px;
+    }
+}
+@media only screen and (max-width: 580px) {
+    .paginateContainer .paginate {
+        padding: 12px 6px;
+        gap: 0 6px;
+    }
+    .paginateContainer .paginate a {
+        font-size: 90%;
+    }
+}
+@media only screen and (max-width: 540px) {
+    .list .item .links {
+        display: block;
+    }
+    .list .item .links a:not(.icon) {
+        display: block;
+    }
+    .list .item .links a:not(:nth-child(1)) {
+        margin-top: 16px;
+    }
+    .list .item .links .icon {
+        width: 100%;
+    }
+    .list .item .links:not(:nth-child(1)) .icon {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .paginateContainer .paginate {
+        gap: 0 2px;
+    }
+    .paginateContainer .paginate a {
+        padding: 6px 12px;
+    }
+    .paginateContainer .paginate a.icon {
+        padding: 12px 12px;
+    }
+}
+@media only screen and (max-width: 370px) {
+    .paginateContainer .paginate a {
+        padding: 6px 8px;
+    }
+    .paginateContainer .paginate {
+        padding: 12px 4px;
+        gap: 0;
+    }
+    .paginateContainer .paginate a.icon {
+        padding: 12px 8px;
+    }
+}

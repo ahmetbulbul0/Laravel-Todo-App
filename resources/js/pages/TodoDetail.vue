@@ -6,8 +6,8 @@
                     <span>Todo Detail</span>
                 </div>
                 <div class="links">
-                    <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-green link"><i class="fa-solid fa-pen-to-square"></i></router-link>
-                    <a @click="deleteTodo(todo.id)" class="bg-red link"><i class="fa-solid fa-trash"></i></a>
+                    <router-link :to="{ name: 'TodoEdit', params: { todoId: todo.id } }" class="bg-green link link-icon"><i class="fa-solid fa-pen-to-square"></i></router-link>
+                    <a @click="deleteTodo(todo.id)" class="bg-red link link-icon"><i class="fa-solid fa-trash"></i></a>
                     <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
                     <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
                     <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="item block">
                     <label>Added Time:</label>
-                    <div class="item">
+                    <div class="item dateTime">
                         <input type="date" v-model="addedDate" readonly />
                         <input type="time" v-model="addedTime" readonly />
                     </div>
