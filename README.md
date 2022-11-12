@@ -84,6 +84,10 @@ npm run dev
 http://localhost:8000/
 ```
 
+## Admin User Credentials
+-   Email: admin@todo.com
+-   Password: admin1todo
+
 ## **Api Documentation**
 
 ### **_Users_**
