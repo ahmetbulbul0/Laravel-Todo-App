@@ -10,6 +10,7 @@
 -   **Css**
 -   **Php**
 -   **Html**
+-   **MySql**
 
 ## Dependencies
 
@@ -20,7 +21,7 @@
 -   Vuex
 -   Vuex Persistedstate
 
-## Project Setup Process
+## Project Setup Process (BackEnd)
 
 ### Install composer (for php packages)
 
@@ -60,10 +61,18 @@ php artisan db:seed
 php artisan db:seed --class=AdminSeeder
 ```
 
-### Run project (BackEnd)
+### Run project
 
 ```sh
 php artisan serve
+```
+
+## Project Setup Process (FrontEnd)
+
+### switch to "vue" folder
+
+```sh
+cd vue
 ```
 
 ### install npm (for npm packages)
@@ -72,7 +81,7 @@ php artisan serve
 npm install
 ```
 
-### Run project (FrontEnd)
+### Run project
 
 ```sh
 npm run dev
@@ -81,7 +90,7 @@ npm run dev
 ### Open Link
 
 ```sh
-http://localhost:8000/
+http://localhost:5173/
 ```
 
 ## Admin User Credentials
