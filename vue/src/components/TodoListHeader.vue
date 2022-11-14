@@ -33,7 +33,7 @@
             </label>
         </div>
         <div class="text">
-            <input type="text" placeholder="Search in todos..." v-model="search"  @keyup.enter="$emit('search', search)">
+            <input type="text" placeholder="Search in todos..." v-model="search" @keyup.enter="$emit('search', search)">
             <a class="searchBtn" @click="$emit('search', search)">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </a>

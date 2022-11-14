@@ -5,12 +5,9 @@
                 <span>Login</span>
             </div>
             <div class="subText mt6">
-                <span
-                    >if you don't have an account,
-                    <router-link :to="{ name: 'Register' }"
-                        >Register Here</router-link
-                    ></span
-                >
+                <span>if you don't have an account,
+                    <router-link :to="{ name: 'Register' }">Register Here</router-link>
+                </span>
             </div>
             <form class="form mt12" @submit="login">
                 <div class="line">
@@ -19,12 +16,7 @@
                 </div>
                 <div class="line">
                     <label>Password:</label>
-                    <input
-                        type="password"
-                        class="mt6"
-                        v-model="password"
-                        required
-                    />
+                    <input type="password" class="mt6" v-model="password" required />
                 </div>
                 <div class="line" v-if="store.state.loginError">
                     <label>{{ store.state.loginError }}</label>

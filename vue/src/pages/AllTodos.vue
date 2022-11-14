@@ -1,20 +1,9 @@
 <template>
     <div class="container">
         <div class="md-box">
-            <TodoListHeader
-                @sorting="sorting"
-                @filter="filter"
-                @logOut="logOut"
-                @search="search"
-                :title="title"
-            />
-            <TodoList
-                v-if="todos"
-                :data="todos"
-                @deleteTodo="deleteTodo"
-                @completeTodo="completeTodo"
-                @changePage="changePage"
-            />
+            <TodoListHeader @sorting="sorting" @filter="filter" @logOut="logOut" @search="search" :title="title" />
+            <TodoList v-if="todos" :data="todos" @deleteTodo="deleteTodo" @completeTodo="completeTodo"
+                @changePage="changePage" />
         </div>
     </div>
 </template>
@@ -40,7 +29,7 @@ const TodoListHeader = defineAsyncComponent((todos) =>
     import("../components/TodoListHeader.vue")
 );
 const store = useStore();
-const title = "My Todos";
+const title = "All   Todos";
 store.commit("setPage", "");
 var todos = ref("");
 if (

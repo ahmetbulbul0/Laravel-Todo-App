@@ -6,24 +6,14 @@
                     <span>New Todo</span>
                 </div>
                 <div class="links">
-                    <router-link
-                        :to="{ name: 'MyTodos' }"
-                        class="bg-redPink link"
-                        >My Todo's</router-link
-                    >
-                    <a class="bg-redPink link" @click="store.dispatch('logOut')"
-                        >Log Out</a
-                    >
+                    <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
+                    <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
                 </div>
             </div>
             <form class="form mt12" @submit.prevent="newTodo">
                 <div class="line">
                     <label>Content:</label>
-                    <textarea
-                        class="mt6 h140"
-                        v-model="content"
-                        required
-                    ></textarea>
+                    <textarea class="mt6 h140" v-model="content" required></textarea>
                 </div>
                 <div class="line">
                     <button class="fullBtn bg-green">Add Todo</button>

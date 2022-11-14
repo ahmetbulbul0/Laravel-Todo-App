@@ -5,46 +5,28 @@
                 <span>Register</span>
             </div>
             <div class="subText mt6">
-                <span
-                    >if you have an account,
-                    <router-link :to="{ name: 'Login' }"
-                        >Login Here</router-link
-                    ></span
-                >
+                <span>if you have an account,
+                    <router-link :to="{ name: 'Login' }">Login Here</router-link>
+                </span>
             </div>
             <form class="form mt12" @submit="register">
                 <div class="line">
                     <label>Full Name:</label>
-                    <input
-                        type="text"
-                        class="mt6"
-                        v-model="fullName"
-                        required
-                    />
+                    <input type="text" class="mt6" v-model="fullName" required />
                 </div>
                 <div class="line" v-if="store.state.fullNameError">
                     <label>{{ store.state.fullNameError }}</label>
                 </div>
                 <div class="line">
                     <label>Username:</label>
-                    <input
-                        type="text"
-                        class="mt6"
-                        v-model="username"
-                        required
-                    />
+                    <input type="text" class="mt6" v-model="username" required />
                 </div>
                 <div class="line" v-if="store.state.usernameError">
                     <label>{{ store.state.usernameError }}</label>
                 </div>
                 <div class="line">
                     <label>Password:</label>
-                    <input
-                        type="password"
-                        class="mt6"
-                        v-model="password"
-                        required
-                    />
+                    <input type="password" class="mt6" v-model="password" required />
                 </div>
                 <div class="line" v-if="store.state.passwordError">
                     <label>{{ store.state.passwordError }}</label>
@@ -90,7 +72,8 @@ async function register(ev) {
         type: "user",
     };
     store.dispatch("register", data);
-    setTimeout(() => goDashbord(), 500);}
+    setTimeout(() => goDashbord(), 500);
+}
 function goDashbord() {
     if (store.state.userType == "user") {
         router.push({ name: "MyTodos" });

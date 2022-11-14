@@ -6,47 +6,25 @@
                     <span>Todo Edit</span>
                 </div>
                 <div class="links">
-                    <router-link
-                        :to="{ name: 'MyTodos' }"
-                        class="bg-redPink link"
-                        >My Todo's</router-link
-                    >
-                    <router-link
-                        :to="{ name: 'NewTodo' }"
-                        class="bg-redPink link"
-                        >New Todo</router-link
-                    >
-                    <a class="bg-redPink link" @click="store.dispatch('logOut')"
-                        >Log Out</a
-                    >
+                    <router-link :to="{ name: 'MyTodos' }" class="bg-redPink link">My Todo's</router-link>
+                    <router-link :to="{ name: 'NewTodo' }" class="bg-redPink link">New Todo</router-link>
+                    <a class="bg-redPink link" @click="store.dispatch('logOut')">Log Out</a>
                 </div>
             </div>
             <form class="form mt12" @submit.prevent="updateTodo">
                 <div class="line">
                     <label>Content:</label>
-                    <textarea class="mt12 h140" v-model="todo.content">
-{ todo.content }</textarea
-                    >
+                    <textarea class="mt12 h140" v-model="todo.content">{ todo.content }</textarea>
                 </div>
                 <div class="line">
                     <label>Is Completed:</label>
                     <div class="radios around">
                         <label>
-                            <input
-                                type="radio"
-                                v-model="todo.isCompleted"
-                                value="1"
-                                :checked="todo.isCompleted"
-                            />
+                            <input type="radio" v-model="todo.isCompleted" value="1" :checked="todo.isCompleted" />
                             Yes
                         </label>
                         <label>
-                            <input
-                                type="radio"
-                                v-model="todo.isCompleted"
-                                value="0"
-                                :checked="!todo.isCompleted"
-                            />
+                            <input type="radio" v-model="todo.isCompleted" value="0" :checked="!todo.isCompleted" />
                             No
                         </label>
                     </div>

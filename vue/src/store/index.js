@@ -17,7 +17,7 @@ export default createStore({
         emailError: "",
         myTodosSorting: "",
         myTodosFilter: "",
-        myTodosPage: ""
+        myTodosPage: "",
     },
     getters: {},
     mutations: {
@@ -61,20 +61,25 @@ export default createStore({
             state.emailError = null;
         },
         setMyTodosSorting(state, sorting) {
-            state.myTodosSorting = sorting
+            state.myTodosSorting = sorting;
         },
         setMyTodosFilter(state, filter) {
-            state.myTodosFilter = filter
+            state.myTodosFilter = filter;
         },
         setPage(state, page) {
-            state.myTodosPage = page
-        }
+            state.myTodosPage = page;
+        },
     },
     actions: {
         async login(state, data) {
-            await axios.post("http://localhost:8000/api/login", data)
+            await axios
+                .post("http://localhost:8000/api/login", data)
                 .then(function (response) {
-                    if (response.data.user && response.data.token && response.data.status == "ok") {
+                    if (
+                        response.data.user &&
+                        response.data.token &&
+                        response.data.status == "ok"
+                    ) {
                         var user = response.data.user;
                         var token = response.data.token;
                         state.commit("setToken", token);

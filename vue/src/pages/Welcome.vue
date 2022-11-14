@@ -6,18 +6,10 @@
             </div>
             <div class="list">
                 <div class="item center">
-                    <router-link
-                        class="fullBtn bg-redPink"
-                        :to="{ name: 'Login' }"
-                        >Login</router-link
-                    >
+                    <router-link class="fullBtn bg-redPink" :to="{ name: 'Login' }">Login</router-link>
                 </div>
                 <div class="item center">
-                    <router-link
-                        class="fullBtn bg-redPink"
-                        :to="{ name: 'Register' }"
-                        >Register</router-link
-                    >
+                    <router-link class="fullBtn bg-redPink" :to="{ name: 'Register' }">Register</router-link>
                 </div>
             </div>
         </div>

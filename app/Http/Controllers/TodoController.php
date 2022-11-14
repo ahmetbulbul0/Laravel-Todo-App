@@ -51,7 +51,7 @@ class TodoController extends Controller
         }
         if ($request->search) {
             $search = htmlspecialchars($request->search);
-            $data = $data->where("content", "like", "%".$search."%");
+            $data = $data->where("content", "like", "%" . $search . "%");
         }
         $page = intval($request->page) ? intval($request->page) : 1;
         $data = TodoController::paginate($data, $page, 10);
@@ -62,7 +62,8 @@ class TodoController extends Controller
         return $response;
     }
 
-    static function paginate($data, $page, $itemPerPage) {
+    static function paginate($data, $page, $itemPerPage)
+    {
         $dataNumber = count($data->get());
 
         $TotalPageNumber = TodoController::getTotalPageNumber($dataNumber, $itemPerPage);

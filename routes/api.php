@@ -22,4 +22,3 @@ Route::apiResource('users', UserController::class)->middleware("auth:sanctum");
 
 Route::post('login', [LoginController::class, 'index']);
 Route::post('register', [RegisterController::class, 'index']);
-
