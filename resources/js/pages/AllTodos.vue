@@ -40,7 +40,7 @@ const TodoListHeader = defineAsyncComponent((todos) =>
     import("../components/TodoListHeader.vue")
 );
 const store = useStore();
-const title = "All   Todos";
+const title = "All Todos";
 store.commit("setPage", "");
 var todos = ref("");
 if (
