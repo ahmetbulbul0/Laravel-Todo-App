@@ -5,27 +5,28 @@
 ![todo_app_todo_detail_1366x768_poster](./git-images/todo_app_todo_detail_1366x768_poster.png)
 ![todo_app_todo_edit_1366x768_poster](./git-images/todo_app_todo_edit_1366x768_poster.png)
 
-# Laravel-Vue-Todo-App
+# Todo-App
 
-**_Laravel Vue Todo App Project_**
+**_Todo App_**
 
 ## Technologies
 
+-   **Html**
+-   **Css**
+-   **JavaScript**
+-   **Php**
 -   **Laravel**
 -   **Vue**
--   **JavaScript**
--   **Css**
--   **Php**
--   **Html**
 
 ## Dependencies
 
 -   Sanctum
 -   Vue-Router
--   Axios
--   Vite
 -   Vuex
 -   Vuex Persistedstate
+-   Vue Loader
+-   Axios
+-   Google Fonts(Poppins)
 
 ## Project Setup Process
 
@@ -55,7 +56,7 @@ php artisan key:generate
 php artisan migrate
 ```
 
-### Run seeders (for test datas, example: users, todos)
+### Run Seeders (for datas)
 
 ```sh
 php artisan db:seed
@@ -67,22 +68,34 @@ php artisan db:seed
 php artisan db:seed --class=AdminSeeder
 ```
 
-### Run project (BackEnd)
+### Run project
 
 ```sh
 php artisan serve
 ```
 
-### install npm (for npm packages)
+### Install npm (for npm packages)
 
 ```sh
 npm install
 ```
 
-### Run project (FrontEnd)
+### to run project in development environment
 
 ```sh
 npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with
+
+```sh
+npm run lint
 ```
 
 ### Open Link
@@ -92,8 +105,20 @@ http://localhost:8000/
 ```
 
 ## Admin User Credentials
+
 -   Email: admin@todo.com
 -   Password: admin1todo
+
+## **Pages**
+
+-   _Welcome_ (path: '/') - _(only guests)_
+-   _Register_ (path: '/register') - _(only guests)_
+-   _Login_ (path: '/login') - _(only users)_
+-   _MyTodos_ (path: '/my-todos') - _(only users)_
+-   _AllTodos_ (path: '/all-todos') - _(only admins)_
+-   _NewTodo_ (path: '/new-todo') - _(only users)_
+-   _TodoDetail_ (path: '/todo-detail/{:todoId}') - _(only users)_
+-   _TodoEdit_ (path: '/todo-edit/{:todoId}') - _(only users)_
 
 ## **Api Documentation**
 
@@ -118,14 +143,3 @@ http://localhost:8000/
 -   _Factory_: TodoFactory
 -   _Seeder_: TodoSeeder
 -   _Main Route_: /api/todos
-
-## **Pages**
-
--   _Welcome_ (path: '/') - _(only guests)_
--   _Register_ (path: '/register') - _(only guests)_
--   _Login_ (path: '/login') - _(only users)_
--   _MyTodos_ (path: '/my-todos') - _(only users)_
--   _AllTodos_ (path: '/all-todos') - _(only admins)_
--   _NewTodo_ (path: '/new-todo') - _(only users)_
--   _TodoDetail_ (path: '/todo-detail/{:todoId}') - _(only users)_
--   _TodoEdit_ (path: '/todo-edit/{:todoId}') - _(only users)_
