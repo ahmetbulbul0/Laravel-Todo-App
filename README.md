@@ -1,131 +1,120 @@
-![todo_app_welcome_1366x768_poster](./git-images/todo_app_welcome_1366x768_poster.png)
-![todo_app_register_1366x768_poster](./git-images/todo_app_register_1366x768_poster.png)
-![todo_app_login_1366x768_poster](./git-images/todo_app_login_1366x768_poster.png)
-![todo_app_my_todos_1366x768_poster](./git-images/todo_app_my_todos_1366x768_poster.png)
-![todo_app_todo_detail_1366x768_poster](./git-images/todo_app_todo_detail_1366x768_poster.png)
-![todo_app_todo_edit_1366x768_poster](./git-images/todo_app_todo_edit_1366x768_poster.png)
+# Todo-App-Laravel-VueJs
 
-# Laravel-Vue-Todo-App
+A functional and well-structured Todo application built with Laravel for the backend and Vue.js for the frontend. This application provides a comprehensive system for managing tasks, including user authentication and CRUD operations for todos.
 
-**_Laravel Vue Todo App Project_**
+Key Features:
 
-## Technologies
+- User Registration and Login: Secure user authentication system to manage individual user sessions.
+- Todo Management:
+  - List all todos in a clean and organized view.
+  - Mark todos as completed or incomplete with a simple toggle.
+  - Add new todos, edit existing ones, or delete unwanted tasks.
+- Backend:
+  - Built with Laravel using a RESTful API to handle all server-side operations efficiently.
+- Frontend:
+  - Developed with Vue.js for a dynamic and interactive user interface.
+  - Consistent design with a modern dark theme for an appealing look.
+- Responsive: Not optimized for mobile devices but designed for desktop use.
 
--   **Laravel**
--   **Vue**
--   **JavaScript**
--   **Css**
--   **Php**
--   **Html**
+This project is ideal for showcasing CRUD operations, RESTful API integration, and a seamless connection between the Laravel backend and Vue.js frontend.
 
-## Dependencies
+## Technologies (languages & frameworks)
 
--   Sanctum
--   Vue-Router
--   Axios
--   Vite
--   Vuex
--   Vuex Persistedstate
+- Html
+- Css
+- JavaScript
+- Php
+- VueJs
+- Laravel
+- MySql
 
-## Project Setup Process
+## Packages & Libraries
 
-### Install composer (for php packages)
+- Sanctum
+- Vue-Loader
+- Vue-Router
+- Vuex
+- Vuex-Persistedstate
 
+## Setup
+
+1. Install Php Packages
 ```sh
 composer install
 ```
-
-### Create .env file
-
+2. Create .env File
 ```sh
 1. duplicate the ".env.example" in main folder
 2. rename the file you copied to ".env"
 3. configure the ".env" file you renamed
 ```
-
-### Create app key
-
+3. Create App Key
 ```sh
 php artisan key:generate
 ```
-
-### Run migrations (for create database tables)
-
+4. Run Migrations
 ```sh
 php artisan migrate
 ```
-
-### Run seeders (for test datas, example: users, todos)
-
+5. Run Seeders (For Test Datas)
 ```sh
 php artisan db:seed
 ```
-
-### Run Admin Seeder (for admin user)
-
+6. Run Admin Seeder (For Admin User)
 ```sh
 php artisan db:seed --class=AdminSeeder
 ```
-
-### Run project (BackEnd)
-
+7. Run Laravel Project
 ```sh
 php artisan serve
 ```
-
-### install npm (for npm packages)
-
+8. Install JavaScript Packages
 ```sh
 npm install
 ```
-
-### Run project (FrontEnd)
-
+9.  Run VueJs Project
 ```sh
 npm run dev
 ```
 
-### Open Link
+## Essential Terminal Commands
+
+- Type-Check, Compile and Minify for Production (for VuejS)
 
 ```sh
-http://localhost:8000/
+npm run build
 ```
 
-## Admin User Credentials
--   Email: admin@todo.com
--   Password: admin1todo
+## Pages
 
-## **Api Documentation**
+- Home [localhost:8000/](http://localhost:8000/)
+- Login [localhost:8000/login](http://localhost:8000/login)
+- Register [localhost:8000/register](http://localhost:8000/register)
+- Dashboard [localhost:8000/dashboard](http://localhost:8000/dashboard)
+- New Item [localhost:8000/dashboard/create](http://localhost:8000/dashboard/create)
+- Home [localhost:8000/](http://localhost:8000/)
+- Register [localhost:8000/register](http://localhost:8000/register)
+- Login [localhost:8000/login](http://localhost:8000/login)
+- Log Out [localhost:8000/log-out](http://localhost:8000/log-out) 
+- My Todo's [localhost:8000/my-todos](http://localhost:8000/my-todos)
+- All Todo's [localhost:8000/all-todos](http://localhost:8000/all-todos)
+- New Todo [localhost:8000/new-todo](http://localhost:8000/new-todo)
+- Todo Detail [localhost:8000/todo-detail/{todoId}](http://localhost:8000/todo-detail/{todoId})
+- Complete Todo [localhost:8000/is-complete/{todoId}](http://localhost:8000/is-complete/{todoId})
+- Edit Todo [localhost:8000/todo-edit/{todoId}](http://localhost:8000/todo-edit/{todoId})
+- Delete Todo [localhost:8000/todo-delete/{todoId}](http://localhost:8000/todo-delete/{todoId})
 
-### **_Users_**
+## Endpoints
 
--   _Controller_: UserController
--   _Model_: User
--   _Database_: users
--   _Collection_: UserCollection
--   _Resource_: UserResource
--   _Factory_: UserFactory
--   _Seeder_: UserSeeder
--   _Main Route_: /api/users
-
-### **_Todos_**
-
--   _Controller_: TodoController
--   _Model_: Todo
--   _Database_: todos
--   _Collection_: TodoCollection
--   _Resource_: TodoResource
--   _Factory_: TodoFactory
--   _Seeder_: TodoSeeder
--   _Main Route_: /api/todos
-
-## **Pages**
-
--   _Welcome_ (path: '/') - _(only guests)_
--   _Register_ (path: '/register') - _(only guests)_
--   _Login_ (path: '/login') - _(only users)_
--   _MyTodos_ (path: '/my-todos') - _(only users)_
--   _AllTodos_ (path: '/all-todos') - _(only admins)_
--   _NewTodo_ (path: '/new-todo') - _(only users)_
--   _TodoDetail_ (path: '/todo-detail/{:todoId}') - _(only users)_
--   _TodoEdit_ (path: '/todo-edit/{:todoId}') - _(only users)_
+- Login [localhost:8000/api/login](http://localhost:8000/api/login) Method: POST
+- Register [localhost:8000/api/register](http://localhost:8000/api/register) Method: POST
+- Todo's [localhost:8000/api/todos](http://localhost:8000/api/todos) Method: GET
+- Todo Detail [localhost:8000/api/todos/{todoId}](http://localhost:8000/api/todos/{todoId}) Method: GET
+- Todo Create [localhost:8000/api/todos](http://localhost:8000/api/todos) Method: POST
+- Todo Update [localhost:8000/api/todos/{todoId}](http://localhost:8000/api/todos/{todoId}) Method: PUT|PATCH
+- Todo Delete [localhost:8000/api/todos/{todoId}](http://localhost:8000/api/todos/{todoId}) Method: DELETE
+- User's [localhost:8000/api/user](http://localhost:8000/api/user) Method: GET
+- User Detail [localhost:8000/api/user/{userId}](http://localhost:8000/api/user/{userId}) Method: GET
+- User Create [localhost:8000/api/user](http://localhost:8000/api/user) Method: POST
+- User Update [localhost:8000/api/user/{userId}](http://localhost:8000/api/user/{userId}) Method: PUT|PATCH
+- User Delete [localhost:8000/api/user/{userId}](http://localhost:8000/api/user/{userId}) Method: DELETE
