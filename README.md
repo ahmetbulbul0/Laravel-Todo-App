@@ -85,6 +85,11 @@ npm run dev
 npm run build
 ```
 
+## Admin User Credentials
+
+-   Email: admin@todo.com
+-   Password: admin1todo
+
 ## Pages
 
 - Home [localhost:8000/](http://localhost:8000/)
